@@ -3,17 +3,23 @@
 <head>
   <meta charset="utf-8">
   
-  <title>Archives | Polaris&#39;s World</title>
+  <title>LQI、RSSI、SNR | Polaris&#39;s World</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="Step up little every day">
-<meta property="og:type" content="website">
-<meta property="og:title" content="Polaris's World">
-<meta property="og:url" content="http://polariss.com/archives/">
+  <meta name="description" content="LQI
+ &nbsp; &nbsp; &nbsp; &nbsp;IEEE802.15.4标准中对LQI(Link Quality Indicator)的说明如下：LQI用来描述接收到数据包的强度和/或质量。通过接收端ED(Dnergy Detection),信噪比估值等变量计算得到。并由网络层或应用层调用。
+&nbsp; &nbsp; &nbsp; &nbsp;每一包接收到的数据都应该获取其LQI">
+<meta property="og:type" content="article">
+<meta property="og:title" content="LQI、RSSI、SNR">
+<meta property="og:url" content="http://polariss.com/2014/09/06/LQI、RSSI、SNR/">
 <meta property="og:site_name" content="Polaris's World">
-<meta property="og:description" content="Step up little every day">
+<meta property="og:description" content="LQI
+ &nbsp; &nbsp; &nbsp; &nbsp;IEEE802.15.4标准中对LQI(Link Quality Indicator)的说明如下：LQI用来描述接收到数据包的强度和/或质量。通过接收端ED(Dnergy Detection),信噪比估值等变量计算得到。并由网络层或应用层调用。
+&nbsp; &nbsp; &nbsp; &nbsp;每一包接收到的数据都应该获取其LQI">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="Polaris's World">
-<meta name="twitter:description" content="Step up little every day">
+<meta name="twitter:title" content="LQI、RSSI、SNR">
+<meta name="twitter:description" content="LQI
+ &nbsp; &nbsp; &nbsp; &nbsp;IEEE802.15.4标准中对LQI(Link Quality Indicator)的说明如下：LQI用来描述接收到数据包的强度和/或质量。通过接收端ED(Dnergy Detection),信噪比估值等变量计算得到。并由网络层或应用层调用。
+&nbsp; &nbsp; &nbsp; &nbsp;每一包接收到的数据都应该获取其LQI">
 
   
     <link rel="alternative" href="/atom.xml" title="Polaris&#39;s World" type="application/atom+xml">
@@ -64,58 +70,72 @@
   </div>
 </header>
       <div class="outer">
-        <section id="main">
-  
-  
-    
-    
-      
-      
-      <section class="archives-wrap">
-        <div class="archive-year-wrap">
-          <a href="/archives/2014" class="archive-year">2014</a>
-        </div>
-        <div class="archives">
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      <a href="/2014/09/06/C  Runtime Library/" class="archive-article-date">
-  <time datetime="2014-09-06T12:30:00.000Z" itemprop="datePublished">9月 6</time>
+        <section id="main"><article id="post-LQI、RSSI、SNR" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2014/09/06/LQI、RSSI、SNR/" class="article-date">
+  <time datetime="2014-09-06T12:30:00.000Z" itemprop="datePublished">9月 6 2014</time>
 </a>
-      
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
   
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2014/09/06/C  Runtime Library/">C运行库</a>
+    <h1 class="article-title" itemprop="name">
+      LQI、RSSI、SNR
     </h1>
   
 
-    </header>
-  </div>
-</article>
-  
+      </header>
     
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      <a href="/2014/09/06/LQI、RSSI、SNR/" class="archive-article-date">
-  <time datetime="2014-09-06T12:30:00.000Z" itemprop="datePublished">9月 6</time>
-</a>
+    <div class="article-entry" itemprop="articleBody">
       
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2014/09/06/LQI、RSSI、SNR/">LQI、RSSI、SNR</a>
-    </h1>
-  
+        <h2 id="LQI">LQI</h2>
+<p> &nbsp; &nbsp; &nbsp; &nbsp;IEEE802.15.4标准中对<strong>LQI(Link Quality Indicator)</strong>的说明如下：LQI用来描述接收到数据包的强度和/或质量。通过接收端ED(Dnergy Detection),信噪比估值等变量计算得到。并由网络层或应用层调用。</p>
+<p>&nbsp; &nbsp; &nbsp; &nbsp;每一包接收到的数据都应该获取其LQI值，并报告给MAC层。LQI的取值是0x00到0xFF之间的整数，其中0x00和0xFF分别对应着信号质量最差和信号质量最好的情况。所有测到的LQ(Link Quality)值应该都应该分布在这两个极限值之间。<em>至少需要8个唯一的LQ值</em>(这一句话什么意思？)。</p>
+<h2 id="RSSI">RSSI</h2>
+<p> &nbsp; &nbsp; &nbsp; &nbsp;<strong>RSSI(Received Signal Strength Indication)</strong>顾名思义，接收信号强度指示，</p>
+<h2 id="SNR">SNR</h2>
 
-    </header>
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://polariss.com/2014/09/06/LQI、RSSI、SNR/" data-id="81vr9sewiw1q4nbg" class="article-share-link">Share</a>
+      
+        <a href="http://polariss.com/2014/09/06/LQI、RSSI、SNR/#disqus_thread" class="article-comment-link">Comments</a>
+      
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/RF/">RF</a></li></ul>
+
+    </footer>
   </div>
+  
+    
+<nav id="article-nav">
+  
+    <a href="/2014/09/06/C  Runtime Library/" id="article-nav-newer" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Newer</strong>
+      <div class="article-nav-title">
+        
+          C运行库
+        
+      </div>
+    </a>
+  
+  
+</nav>
+
+  
 </article>
-  
-  
-    </div></section>
-  
+
+
+<section id="comments">
+  <div id="disqus_thread">
+    <noscript>Please enable JavaScript to view the <a href="//disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+  </div>
+</section>
 </section>
         
           <aside id="sidebar">
@@ -192,11 +212,13 @@
 <script>
   var disqus_shortname = 'polaris';
   
+  var disqus_url = 'http://polariss.com/2014/09/06/LQI、RSSI、SNR/';
+  
   (function(){
     var dsq = document.createElement('script');
     dsq.type = 'text/javascript';
     dsq.async = true;
-    dsq.src = '//go.disqus.com/count.js';
+    dsq.src = '//go.disqus.com/embed.js';
     (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
   })();
 </script>
