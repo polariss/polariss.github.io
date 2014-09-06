@@ -6,17 +6,23 @@
   <title>C运行库 | Polaris&#39;s World</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
   <meta name="description" content="C运行库
-&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;前几天参加一家公司的面试，笔试时碰到了这么一个问题：**&lt;font color='#0000ff'&gt;解释一下C运行库的意义和用途&lt;/font&gt;**。哎，学艺不精，整好从来没留意过这个概念，回来之后当然是要搞懂这个传说中的C运行">
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;前几天参加一家公司的面试，笔试时碰到了这么一个问题：解释一下C运行库的意义和用途。哎，学艺不精，整好从来没留意过这个概念，回来之后当然是要搞懂这个传说中的C运行库到底是个神马玩意儿了。下面就把从网上搜集的资料总结了一下，记录下来，前事不忘后事之师嘛。
+什么是运行库
+&nbsp;&nbsp;&nbsp;&n">
 <meta property="og:type" content="article">
 <meta property="og:title" content="C运行库">
 <meta property="og:url" content="http://polariss.com/2014/09/06/C  Runtime Library/">
 <meta property="og:site_name" content="Polaris's World">
 <meta property="og:description" content="C运行库
-&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;前几天参加一家公司的面试，笔试时碰到了这么一个问题：**&lt;font color='#0000ff'&gt;解释一下C运行库的意义和用途&lt;/font&gt;**。哎，学艺不精，整好从来没留意过这个概念，回来之后当然是要搞懂这个传说中的C运行">
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;前几天参加一家公司的面试，笔试时碰到了这么一个问题：解释一下C运行库的意义和用途。哎，学艺不精，整好从来没留意过这个概念，回来之后当然是要搞懂这个传说中的C运行库到底是个神马玩意儿了。下面就把从网上搜集的资料总结了一下，记录下来，前事不忘后事之师嘛。
+什么是运行库
+&nbsp;&nbsp;&nbsp;&n">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="C运行库">
 <meta name="twitter:description" content="C运行库
-&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;前几天参加一家公司的面试，笔试时碰到了这么一个问题：**&lt;font color='#0000ff'&gt;解释一下C运行库的意义和用途&lt;/font&gt;**。哎，学艺不精，整好从来没留意过这个概念，回来之后当然是要搞懂这个传说中的C运行">
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;前几天参加一家公司的面试，笔试时碰到了这么一个问题：解释一下C运行库的意义和用途。哎，学艺不精，整好从来没留意过这个概念，回来之后当然是要搞懂这个传说中的C运行库到底是个神马玩意儿了。下面就把从网上搜集的资料总结了一下，记录下来，前事不忘后事之师嘛。
+什么是运行库
+&nbsp;&nbsp;&nbsp;&n">
 
   
     <link rel="alternative" href="/atom.xml" title="Polaris&#39;s World" type="application/atom+xml">
@@ -90,8 +96,8 @@
     <div class="article-entry" itemprop="articleBody">
       
         <h2 id="C运行库">C运行库</h2>
-<pre><code>&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;前几天参加一家公司的面试，笔试时碰到了这么一个问题：<span class="keyword">*</span><span class="keyword">*</span><span class="variable">&lt;font color="#0000ff"&gt;</span>解释一下C运行库的意义和用途<span class="variable">&lt;/font&gt;</span><span class="keyword">*</span><span class="keyword">*</span>。哎，学艺不精，整好从来没留意过这个概念，回来之后当然是要搞懂这个传说中的C运行库到底是个神马玩意儿了。下面就把从网上搜集的资料总结了一下，记录下来，前事不忘后事之师嘛。
-</code></pre><h3 id="什么是运行库"><li>什么是运行库</li></h3>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;前几天参加一家公司的面试，笔试时碰到了这么一个问题：<strong><font color="#0000ff">解释一下C运行库的意义和用途</font></strong>。哎，学艺不精，整好从来没留意过这个概念，回来之后当然是要搞懂这个传说中的C运行库到底是个神马玩意儿了。下面就把从网上搜集的资料总结了一下，记录下来，前事不忘后事之师嘛。</p>
+<h3 id="什么是运行库"><li>什么是运行库</li></h3>
 <p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;任何一个C程序，它的背后都有一套庞大的代码来进行支撑，以使得该程序能够正常运行。这套代码至少包括入口函数，及其所依赖的函数所构成的函数集合。当然，它还理应包括各种标准库函数的实现。这样的一个代码集合称之为<font color="#ff0000">运行库（Runtime Library）</font>。而C语言的运行库，即被称为C运行库（CRT-C Runtime Library）。</p><p></p>
 <h3 id="C运行库的功能"><li>C运行库的功能</li></h3>
 <p>一个C语言运行库大致包含了如下功能：</p>
@@ -122,7 +128,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://polariss.com/2014/09/06/C  Runtime Library/" data-id="7zexyaeitulbabac" class="article-share-link">Share</a>
+      <a data-url="http://polariss.com/2014/09/06/C  Runtime Library/" data-id="c9lxsgsj9dixpxem" class="article-share-link">Share</a>
       
         <a href="http://polariss.com/2014/09/06/C  Runtime Library/#disqus_thread" class="article-comment-link">Comments</a>
       
@@ -135,15 +141,11 @@
     
 <nav id="article-nav">
   
-    <a href="/2014/09/06/LQI、RSSI、SNR/" id="article-nav-newer" class="article-nav-link-wrap">
-      <strong class="article-nav-caption">Newer</strong>
-      <div class="article-nav-title">
-        
-          LQI、RSSI、SNR
-        
-      </div>
-    </a>
   
+    <a href="/2014/09/06/LQI、RSSI、SNR/" id="article-nav-older" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Older</strong>
+      <div class="article-nav-title">LQI、RSSI、SNR</div>
+    </a>
   
 </nav>
 
@@ -196,11 +198,11 @@
       <ul>
         
           <li>
-            <a href="/2014/09/06/LQI、RSSI、SNR/">LQI、RSSI、SNR</a>
+            <a href="/2014/09/06/C  Runtime Library/">C运行库</a>
           </li>
         
           <li>
-            <a href="/2014/09/06/C  Runtime Library/">C运行库</a>
+            <a href="/2014/09/06/LQI、RSSI、SNR/">LQI、RSSI、SNR</a>
           </li>
         
       </ul>

@@ -66,6 +66,75 @@
       <div class="outer">
         <section id="main">
   
+    <article id="post-C  Runtime Library" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2014/09/06/C  Runtime Library/" class="article-date">
+  <time datetime="2014-09-06T12:30:00.000Z" itemprop="datePublished">9月 6 2014</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2014/09/06/C  Runtime Library/">C运行库</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h2 id="C运行库">C运行库</h2>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;前几天参加一家公司的面试，笔试时碰到了这么一个问题：<strong><font color="#0000ff">解释一下C运行库的意义和用途</font></strong>。哎，学艺不精，整好从来没留意过这个概念，回来之后当然是要搞懂这个传说中的C运行库到底是个神马玩意儿了。下面就把从网上搜集的资料总结了一下，记录下来，前事不忘后事之师嘛。</p>
+<h3 id="什么是运行库"><li>什么是运行库</li></h3>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;任何一个C程序，它的背后都有一套庞大的代码来进行支撑，以使得该程序能够正常运行。这套代码至少包括入口函数，及其所依赖的函数所构成的函数集合。当然，它还理应包括各种标准库函数的实现。这样的一个代码集合称之为<font color="#ff0000">运行库（Runtime Library）</font>。而C语言的运行库，即被称为C运行库（CRT-C Runtime Library）。</p><p></p>
+<h3 id="C运行库的功能"><li>C运行库的功能</li></h3>
+<p>一个C语言运行库大致包含了如下功能：</p>
+<ul>
+<li>启动与退出     &nbsp; &nbsp; &nbsp;包括入口函数及入口函数所以来的其他函数等。</li>
+<li>标准函数 &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;由C语言标准规定的C语言标准库所拥有的函数实现。</li>
+<li>I/O &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp;I/O功能的封装和实现。</li>
+<li>堆 &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp; 堆的封装和实现。</li>
+<li>语言实现  &nbsp; &nbsp; &nbsp; &nbsp; 语言中一些特殊功能的实现。</li>
+<li>调试 &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;实现调试功能的代码。</li>
+</ul>
+<hr>
+
+<h3 id="要点总结：">要点总结：</h3>
+<ol>
+<li><p><strong>C语言标准库</strong>是C语言标准化的基础函数库，它定义了C语言中普遍存在的函数集合。我们可以放心地使用标准库中规定的函数而不用担心在将代码移          植到别的平台时对应的平台上不提供这个函数。</p>
+</li>
+<li><p><strong>C运行库</strong>从某种程度上来讲是C语言的程序和不同操作系统平台之间的抽象层，它将不同的操作系统API抽象成相同的库函数。可见运行库与硬件平台    密切相关。</p>
+</li>
+<li><p><strong>C运行库</strong>里面含有初始化代码，还有错误处理代码(例如divide by zero处理)。没有了C Runtime Library，main()函数就不会被调用，exit()    也不能被响应。因为<strong>C Runtime Library包含了C程序运行的最基本和最常用的函数</strong>。</p>
+</li>
+<li><p>到了 C++ 世界里，有另外一个概念:<strong>Standard C++ Library</strong>,它包括了上面所说的 <strong>C Runtime Library</strong> 和 <strong>STL</strong>。</p>
+</li>
+<li><p>Windows环境下，VC提供的 C Runtime Library又分为<strong>动态运行时库</strong>和<strong>静态运行时库</strong>。<br>动态运行时库主要是DLL库文件msvcrt.dll(or SVCRTD.DLL for debug build),对应的Import library文件是MSVCRT.LIB(MSVCRTD.LIB for debug build)；<br>静态运行时库(release版)对应的主要文件是：LIBC.LIB (Single thread static library, retail version)LIBCMT.LIB (Multithread static library, retail version)</p>
+</li>
+</ol>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://polariss.com/2014/09/06/C  Runtime Library/" data-id="c9lxsgsj9dixpxem" class="article-share-link">Share</a>
+      
+        <a href="http://polariss.com/2014/09/06/C  Runtime Library/#disqus_thread" class="article-comment-link">Comments</a>
+      
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/C/">C</a></li></ul>
+
+    </footer>
+  </div>
+  
+</article>
+
+
+  
     <article id="post-LQI、RSSI、SNR" class="article article-type-post" itemscope itemprop="blogPost">
   <div class="article-meta">
     <a href="/2014/09/06/LQI、RSSI、SNR/" class="article-date">
@@ -98,81 +167,12 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://polariss.com/2014/09/06/LQI、RSSI、SNR/" data-id="w729f8hnefyi7jqy" class="article-share-link">Share</a>
+      <a data-url="http://polariss.com/2014/09/06/LQI、RSSI、SNR/" data-id="mdx8wahcg94kuppm" class="article-share-link">Share</a>
       
         <a href="http://polariss.com/2014/09/06/LQI、RSSI、SNR/#disqus_thread" class="article-comment-link">Comments</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/RF/">RF</a></li></ul>
-
-    </footer>
-  </div>
-  
-</article>
-
-
-  
-    <article id="post-C  Runtime Library" class="article article-type-post" itemscope itemprop="blogPost">
-  <div class="article-meta">
-    <a href="/2014/09/06/C  Runtime Library/" class="article-date">
-  <time datetime="2014-09-06T12:30:00.000Z" itemprop="datePublished">9月 6 2014</time>
-</a>
-    
-  </div>
-  <div class="article-inner">
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2014/09/06/C  Runtime Library/">C运行库</a>
-    </h1>
-  
-
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <h2 id="C运行库">C运行库</h2>
-<pre><code>&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;前几天参加一家公司的面试，笔试时碰到了这么一个问题：<span class="keyword">*</span><span class="keyword">*</span><span class="variable">&lt;font color="#0000ff"&gt;</span>解释一下C运行库的意义和用途<span class="variable">&lt;/font&gt;</span><span class="keyword">*</span><span class="keyword">*</span>。哎，学艺不精，整好从来没留意过这个概念，回来之后当然是要搞懂这个传说中的C运行库到底是个神马玩意儿了。下面就把从网上搜集的资料总结了一下，记录下来，前事不忘后事之师嘛。
-</code></pre><h3 id="什么是运行库"><li>什么是运行库</li></h3>
-<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;任何一个C程序，它的背后都有一套庞大的代码来进行支撑，以使得该程序能够正常运行。这套代码至少包括入口函数，及其所依赖的函数所构成的函数集合。当然，它还理应包括各种标准库函数的实现。这样的一个代码集合称之为<font color="#ff0000">运行库（Runtime Library）</font>。而C语言的运行库，即被称为C运行库（CRT-C Runtime Library）。</p><p></p>
-<h3 id="C运行库的功能"><li>C运行库的功能</li></h3>
-<p>一个C语言运行库大致包含了如下功能：</p>
-<ul>
-<li>启动与退出     &nbsp; &nbsp; &nbsp;包括入口函数及入口函数所以来的其他函数等。</li>
-<li>标准函数 &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;由C语言标准规定的C语言标准库所拥有的函数实现。</li>
-<li>I/O &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp;I/O功能的封装和实现。</li>
-<li>堆 &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp; 堆的封装和实现。</li>
-<li>语言实现  &nbsp; &nbsp; &nbsp; &nbsp; 语言中一些特殊功能的实现。</li>
-<li>调试 &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;实现调试功能的代码。</li>
-</ul>
-<hr>
-
-<h3 id="要点总结：">要点总结：</h3>
-<ol>
-<li><p><strong>C语言标准库</strong>是C语言标准化的基础函数库，它定义了C语言中普遍存在的函数集合。我们可以放心地使用标准库中规定的函数而不用担心在将代码移          植到别的平台时对应的平台上不提供这个函数。</p>
-</li>
-<li><p><strong>C运行库</strong>从某种程度上来讲是C语言的程序和不同操作系统平台之间的抽象层，它将不同的操作系统API抽象成相同的库函数。可见运行库与硬件平台    密切相关。</p>
-</li>
-<li><p><strong>C运行库</strong>里面含有初始化代码，还有错误处理代码(例如divide by zero处理)。没有了C Runtime Library，main()函数就不会被调用，exit()    也不能被响应。因为<strong>C Runtime Library包含了C程序运行的最基本和最常用的函数</strong>。</p>
-</li>
-<li><p>到了 C++ 世界里，有另外一个概念:<strong>Standard C++ Library</strong>,它包括了上面所说的 <strong>C Runtime Library</strong> 和 <strong>STL</strong>。</p>
-</li>
-<li><p>Windows环境下，VC提供的 C Runtime Library又分为<strong>动态运行时库</strong>和<strong>静态运行时库</strong>。<br>动态运行时库主要是DLL库文件msvcrt.dll(or SVCRTD.DLL for debug build),对应的Import library文件是MSVCRT.LIB(MSVCRTD.LIB for debug build)；<br>静态运行时库(release版)对应的主要文件是：LIBC.LIB (Single thread static library, retail version)LIBCMT.LIB (Multithread static library, retail version)</p>
-</li>
-</ol>
-
-      
-    </div>
-    <footer class="article-footer">
-      <a data-url="http://polariss.com/2014/09/06/C  Runtime Library/" data-id="7zexyaeitulbabac" class="article-share-link">Share</a>
-      
-        <a href="http://polariss.com/2014/09/06/C  Runtime Library/#disqus_thread" class="article-comment-link">Comments</a>
-      
-      
-  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/C/">C</a></li></ul>
 
     </footer>
   </div>
@@ -222,11 +222,11 @@
       <ul>
         
           <li>
-            <a href="/2014/09/06/LQI、RSSI、SNR/">LQI、RSSI、SNR</a>
+            <a href="/2014/09/06/C  Runtime Library/">C运行库</a>
           </li>
         
           <li>
-            <a href="/2014/09/06/C  Runtime Library/">C运行库</a>
+            <a href="/2014/09/06/LQI、RSSI、SNR/">LQI、RSSI、SNR</a>
           </li>
         
       </ul>
