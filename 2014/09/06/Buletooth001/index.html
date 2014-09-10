@@ -3,23 +3,20 @@
 <head>
   <meta charset="utf-8">
   
-  <title>LQI、RSSI、SNR | Polaris&#39;s World</title>
+  <title>Buletools学习之路-001 | Polaris&#39;s World</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="LQI
-IEEE802.15.4标准中对LQI(Link Quality Indicator)的说明如下：LQI用来描述接收到数据包的强度和/或质量。通过接收端ED(Dnergy Detection),信噪比估值等变量计算得到。并由网络层或应用层调用。
-每一包接收到的数据都应该获取其LQI值，并报告给MAC层。LQI的取值是0x00到0xFF之间的整数，其中0x00和0xFF分别对应着信号质量最差">
+  <meta name="description" content="纯吐槽
+中秋节上午下的订单，买了一套网蜂团队出品的Buletooth 4.0开发板，标价199RMB，把SmartRF04EB仿真器更换成了CCDebugger，又添加了40块大洋。为了楼主刚开始做的梦，楼主这回豁出去了…今天上午收到了开发板套件，楼主心中那个激动啊，心里的小鹿砰砰撞呢，哈哈。中午吃完饭回家后打开盒子一看，矮油，还不错哟，包装的挺好，还送了一个钥匙坠，好开心。But！！当我仔细看完">
 <meta property="og:type" content="article">
-<meta property="og:title" content="LQI、RSSI、SNR">
-<meta property="og:url" content="http://polariss.com/2014/09/06/LQI、RSSI、SNR/">
+<meta property="og:title" content="Buletools学习之路-001">
+<meta property="og:url" content="http://polariss.com/2014/09/06/Buletooth001/">
 <meta property="og:site_name" content="Polaris's World">
-<meta property="og:description" content="LQI
-IEEE802.15.4标准中对LQI(Link Quality Indicator)的说明如下：LQI用来描述接收到数据包的强度和/或质量。通过接收端ED(Dnergy Detection),信噪比估值等变量计算得到。并由网络层或应用层调用。
-每一包接收到的数据都应该获取其LQI值，并报告给MAC层。LQI的取值是0x00到0xFF之间的整数，其中0x00和0xFF分别对应着信号质量最差">
+<meta property="og:description" content="纯吐槽
+中秋节上午下的订单，买了一套网蜂团队出品的Buletooth 4.0开发板，标价199RMB，把SmartRF04EB仿真器更换成了CCDebugger，又添加了40块大洋。为了楼主刚开始做的梦，楼主这回豁出去了…今天上午收到了开发板套件，楼主心中那个激动啊，心里的小鹿砰砰撞呢，哈哈。中午吃完饭回家后打开盒子一看，矮油，还不错哟，包装的挺好，还送了一个钥匙坠，好开心。But！！当我仔细看完">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="LQI、RSSI、SNR">
-<meta name="twitter:description" content="LQI
-IEEE802.15.4标准中对LQI(Link Quality Indicator)的说明如下：LQI用来描述接收到数据包的强度和/或质量。通过接收端ED(Dnergy Detection),信噪比估值等变量计算得到。并由网络层或应用层调用。
-每一包接收到的数据都应该获取其LQI值，并报告给MAC层。LQI的取值是0x00到0xFF之间的整数，其中0x00和0xFF分别对应着信号质量最差">
+<meta name="twitter:title" content="Buletools学习之路-001">
+<meta name="twitter:description" content="纯吐槽
+中秋节上午下的订单，买了一套网蜂团队出品的Buletooth 4.0开发板，标价199RMB，把SmartRF04EB仿真器更换成了CCDebugger，又添加了40块大洋。为了楼主刚开始做的梦，楼主这回豁出去了…今天上午收到了开发板套件，楼主心中那个激动啊，心里的小鹿砰砰撞呢，哈哈。中午吃完饭回家后打开盒子一看，矮油，还不错哟，包装的挺好，还送了一个钥匙坠，好开心。But！！当我仔细看完">
 
   
     <link rel="alternative" href="/atom.xml" title="Polaris&#39;s World" type="application/atom+xml">
@@ -70,9 +67,9 @@ IEEE802.15.4标准中对LQI(Link Quality Indicator)的说明如下：LQI用来�
   </div>
 </header>
       <div class="outer">
-        <section id="main"><article id="post-LQI、RSSI、SNR" class="article article-type-post" itemscope itemprop="blogPost">
+        <section id="main"><article id="post-Buletooth001" class="article article-type-post" itemscope itemprop="blogPost">
   <div class="article-meta">
-    <a href="/2014/09/06/LQI、RSSI、SNR/" class="article-date">
+    <a href="/2014/09/06/Buletooth001/" class="article-date">
   <time datetime="2014-09-06T12:30:00.000Z" itemprop="datePublished">9月 6 2014</time>
 </a>
     
@@ -84,7 +81,7 @@ IEEE802.15.4标准中对LQI(Link Quality Indicator)的说明如下：LQI用来�
         
   
     <h1 class="article-title" itemprop="name">
-      LQI、RSSI、SNR
+      Buletools学习之路-001
     </h1>
   
 
@@ -92,22 +89,25 @@ IEEE802.15.4标准中对LQI(Link Quality Indicator)的说明如下：LQI用来�
     
     <div class="article-entry" itemprop="articleBody">
       
-        <h2 id="LQI">LQI</h2>
-<p>IEEE802.15.4标准中对<strong>LQI(Link Quality Indicator)</strong>的说明如下：LQI用来描述接收到数据包的强度和/或质量。通过接收端ED(Dnergy Detection),信噪比估值等变量计算得到。并由网络层或应用层调用。</p>
-<p>每一包接收到的数据都应该获取其LQI值，并报告给MAC层。LQI的取值是0x00到0xFF之间的整数，其中0x00和0xFF分别对应着信号质量最差和信号质量最好的情况。所有测到的LQ(Link Quality)值应该都应该分布在这两个极限值之间。<em>至少需要8个唯一的LQ值</em>(这一句话什么意思？)。</p>
-<h2 id="RSSI">RSSI</h2>
-<p><strong>RSSI(Received Signal Strength Indication)</strong>顾名思义，接收信号强度指示，</p>
-<h2 id="SNR">SNR</h2>
+        <h2 id="纯吐槽">纯吐槽</h2>
+<p>中秋节上午下的订单，买了一套网蜂团队出品的Buletooth 4.0开发板，标价199RMB，把SmartRF04EB仿真器更换成了CCDebugger，又添加了40块大洋。为了楼主刚开始做的梦，楼主这回豁出去了…<br><br>今天上午收到了开发板套件，楼主心中那个激动啊，心里的小鹿砰砰撞呢，哈哈。中午吃完饭回家后打开盒子一看，矮油，还不错哟，包装的挺好，还送了一个钥匙坠，好开心。But！！当我仔细看完两个开发板时，发现好像哪里不对劲了。楼主本来中午安排好睡觉觉的，可是仔细审视这两个开发板后，就再也睡不着了。尼玛，这两个板子是一个爹妈生的吗？差别也太大了。网蜂当楼主是刚入门不懂事的小弟么？<br><br>晚上下班后，楼主再也不能忍了，决定直接上旺旺质问客服。这一问，楼主彻底不想多说了。这里就总结一下第一次跟网蜂团队接触的吐槽点吧：<br></p>
+<ol>
+<li>开发板做的不算太精致，甚至板子还有毛边和锡渍</li>
+<li>新老版本变动太大，升级必然会出现阻碍</li>
+<li>不厚道，给客户发了一个新版本一个旧版本算什么？而且两个版本的原理图还不兼容。觉得客户都是愣头青？</li>
+<li>找的客服太冷淡，是觉得自己的团队技术够牛逼，不用在意这些细节么？</li>
+</ol>
+<p>其他的细节问题楼主还没有发现，晚上基本上安装安装驱动，吐吐槽，就该睡觉了。<br>、<br>以上言论纯属个人吐槽，不涉及商业竞争什么的。</p>
 
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://polariss.com/2014/09/06/LQI、RSSI、SNR/" data-id="o34px0ue83c7vjfq" class="article-share-link">Share</a>
+      <a data-url="http://polariss.com/2014/09/06/Buletooth001/" data-id="xx0yt53b5o0tg101" class="article-share-link">Share</a>
       
-        <a href="http://polariss.com/2014/09/06/LQI、RSSI、SNR/#disqus_thread" class="article-comment-link">Comments</a>
+        <a href="http://polariss.com/2014/09/06/Buletooth001/#disqus_thread" class="article-comment-link">Comments</a>
       
       
-  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/RF/">RF</a></li></ul>
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Buletooth/">Buletooth</a></li></ul>
 
     </footer>
   </div>
@@ -115,20 +115,15 @@ IEEE802.15.4标准中对LQI(Link Quality Indicator)的说明如下：LQI用来�
     
 <nav id="article-nav">
   
-    <a href="/2014/09/06/C  Runtime Library/" id="article-nav-newer" class="article-nav-link-wrap">
+    <a href="/2014/09/06/LQI、RSSI、SNR/" id="article-nav-newer" class="article-nav-link-wrap">
       <strong class="article-nav-caption">Newer</strong>
       <div class="article-nav-title">
         
-          C运行库
+          LQI、RSSI、SNR
         
       </div>
     </a>
   
-  
-    <a href="/2014/09/06/Buletooth001/" id="article-nav-older" class="article-nav-link-wrap">
-      <strong class="article-nav-caption">Older</strong>
-      <div class="article-nav-title">Buletools学习之路-001</div>
-    </a>
   
 </nav>
 
@@ -221,7 +216,7 @@ IEEE802.15.4标准中对LQI(Link Quality Indicator)的说明如下：LQI用来�
 <script>
   var disqus_shortname = 'polaris';
   
-  var disqus_url = 'http://polariss.com/2014/09/06/LQI、RSSI、SNR/';
+  var disqus_url = 'http://polariss.com/2014/09/06/Buletooth001/';
   
   (function(){
     var dsq = document.createElement('script');
