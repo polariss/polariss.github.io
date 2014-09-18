@@ -3,17 +3,20 @@
 <head>
   <meta charset="utf-8">
   
-  <title>Tag: C | Polaris&#39;s World</title>
+  <title>用STM32F40x的USB接口实现DFU功能时碰到的奇葩事儿 | Polaris&#39;s World</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="Step up little every day">
-<meta property="og:type" content="website">
-<meta property="og:title" content="Polaris's World">
-<meta property="og:url" content="http://polariss.com/tags/C/">
+  <meta name="description" content="问题描述
+硬件平台：STM32F4-Discovery开发板软&nbsp;  &nbsp;  &nbsp;  &nbsp;件：直接采用STM32_USB-Host-Device_Lib_V2.1.0官方例程库中的USB_Device_Examples——&gt;DFU工程现&nbsp;  &nbsp;  &nbsp;  &nbsp;象：接入电脑（下载完程序），显示unknown device具体描">
+<meta property="og:type" content="article">
+<meta property="og:title" content="用STM32F40x的USB接口实现DFU功能时碰到的奇葩事儿">
+<meta property="og:url" content="http://polariss.com/2014/09/18/STM32F40x_USB_DFU/">
 <meta property="og:site_name" content="Polaris's World">
-<meta property="og:description" content="Step up little every day">
+<meta property="og:description" content="问题描述
+硬件平台：STM32F4-Discovery开发板软&nbsp;  &nbsp;  &nbsp;  &nbsp;件：直接采用STM32_USB-Host-Device_Lib_V2.1.0官方例程库中的USB_Device_Examples——&gt;DFU工程现&nbsp;  &nbsp;  &nbsp;  &nbsp;象：接入电脑（下载完程序），显示unknown device具体描">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="Polaris's World">
-<meta name="twitter:description" content="Step up little every day">
+<meta name="twitter:title" content="用STM32F40x的USB接口实现DFU功能时碰到的奇葩事儿">
+<meta name="twitter:description" content="问题描述
+硬件平台：STM32F4-Discovery开发板软&nbsp;  &nbsp;  &nbsp;  &nbsp;件：直接采用STM32_USB-Host-Device_Lib_V2.1.0官方例程库中的USB_Device_Examples——&gt;DFU工程现&nbsp;  &nbsp;  &nbsp;  &nbsp;象：接入电脑（下载完程序），显示unknown device具体描">
 
   
     <link rel="alternative" href="/atom.xml" title="Polaris&#39;s World" type="application/atom+xml">
@@ -64,39 +67,66 @@
   </div>
 </header>
       <div class="outer">
-        <section id="main">
-  
-  
-    
-    
-      
-      
-      <section class="archives-wrap">
-        <div class="archive-year-wrap">
-          <a href="/archives/2014" class="archive-year">2014</a>
-        </div>
-        <div class="archives">
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      <a href="/2014/09/06/C  Runtime Library/" class="archive-article-date">
-  <time datetime="2014-09-06T12:30:00.000Z" itemprop="datePublished">9月 6</time>
+        <section id="main"><article id="post-STM32F40x_USB_DFU" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2014/09/18/STM32F40x_USB_DFU/" class="article-date">
+  <time datetime="2014-09-18T15:37:08.000Z" itemprop="datePublished">9月 18 2014</time>
 </a>
-      
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
   
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2014/09/06/C  Runtime Library/">C运行库</a>
+    <h1 class="article-title" itemprop="name">
+      用STM32F40x的USB接口实现DFU功能时碰到的奇葩事儿
     </h1>
   
 
-    </header>
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h3 id="问题描述"><font color="#B22222">问题描述</font></h3>
+<p>硬件平台：STM32F4-Discovery开发板<br><br>软&nbsp;  &nbsp;  &nbsp;  &nbsp;件：直接采用<a href="http://www.stmcu.org/download/index.php?act=down&amp;id=3080" target="_blank" rel="external"><strong>STM32_USB-Host-Device_Lib_V2.1.0</strong></a>官方例程库中的<em>USB_Device_Examples——&gt;DFU</em>工程<br><br>现&nbsp;  &nbsp;  &nbsp;  &nbsp;象：接入电脑（下载完程序），显示<strong><font color="#B22222">unknown device</font></strong><br><br>具体描述：USB接口原理图如下：<br></p>
+<p><center><img src="" alt="alt jpg"></center><br></p>
+<p>该原理图截取自STM32F4-Discovery开发板。其实可以简化至只有USB_DM、USB_DP两根线</p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://polariss.com/2014/09/18/STM32F40x_USB_DFU/" data-id="ch50g73tnppzzfmp" class="article-share-link">Share</a>
+      
+        <a href="http://polariss.com/2014/09/18/STM32F40x_USB_DFU/#disqus_thread" class="article-comment-link">Comments</a>
+      
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/STM32/">STM32</a></li></ul>
+
+    </footer>
   </div>
+  
+    
+<nav id="article-nav">
+  
+  
+    <a href="/2014/09/06/C  Runtime Library/" id="article-nav-older" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Older</strong>
+      <div class="article-nav-title">C运行库</div>
+    </a>
+  
+</nav>
+
+  
 </article>
-  
-  
-    </div></section>
-  
+
+
+<section id="comments">
+  <div id="disqus_thread">
+    <noscript>Please enable JavaScript to view the <a href="//disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+  </div>
+</section>
 </section>
         
           <aside id="sidebar">
@@ -181,11 +211,13 @@
 <script>
   var disqus_shortname = 'polaris';
   
+  var disqus_url = 'http://polariss.com/2014/09/18/STM32F40x_USB_DFU/';
+  
   (function(){
     var dsq = document.createElement('script');
     dsq.type = 'text/javascript';
     dsq.async = true;
-    dsq.src = '//go.disqus.com/count.js';
+    dsq.src = '//go.disqus.com/embed.js';
     (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
   })();
 </script>

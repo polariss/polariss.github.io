@@ -66,10 +66,10 @@
       <div class="outer">
         <section id="main">
   
-    <article id="post-LQI、RSSI、SNR" class="article article-type-post" itemscope itemprop="blogPost">
+    <article id="post-STM32F40x_USB_DFU" class="article article-type-post" itemscope itemprop="blogPost">
   <div class="article-meta">
-    <a href="/2014/09/06/LQI、RSSI、SNR/" class="article-date">
-  <time datetime="2014-09-06T12:30:00.000Z" itemprop="datePublished">9月 6 2014</time>
+    <a href="/2014/09/18/STM32F40x_USB_DFU/" class="article-date">
+  <time datetime="2014-09-18T15:37:08.000Z" itemprop="datePublished">9月 18 2014</time>
 </a>
     
   </div>
@@ -80,7 +80,7 @@
         
   
     <h1 itemprop="name">
-      <a class="article-title" href="/2014/09/06/LQI、RSSI、SNR/">LQI、RSSI、SNR</a>
+      <a class="article-title" href="/2014/09/18/STM32F40x_USB_DFU/">用STM32F40x的USB接口实现DFU功能时碰到的奇葩事儿</a>
     </h1>
   
 
@@ -88,24 +88,20 @@
     
     <div class="article-entry" itemprop="articleBody">
       
-        <h2 id="关键词汇解释"><font color="#0000CD">关键词汇解释</font></h2>
-<h3 id="LQI"><font color="#0000CD">LQI</font></h3>
-<p>IEEE802.15.4标准中对<strong>LQI(Link Quality Indicator)</strong>的说明如下：LQI用来描述接收到数据包的强度和/或质量。通过接收端ED(Dnergy Detection),信噪比估值等变量计算得到。并由网络层或应用层调用。</p>
-<p>每一包接收到的数据都应该获取其LQI值，并报告给MAC层。LQI的取值是0x00到0xFF之间的整数，其中0x00和0xFF分别对应着信号质量最差和信号质量最好的情况。所有测到的LQ(Link Quality)值应该都应该分布在这两个极限值之间。<em>至少需要8个唯一的LQ值</em>(这一句话什么意思？)。</p>
-<h3 id="RSSI"><font color="#0000CD">RSSI</font></h3>
-<p><strong>RSSI(Received Signal Strength Indication)</strong>顾名思义，接收信号强度指示。通俗的说，该值越大，就说明信号越好，通信质量越有保证。</p>
-<h3 id="SNR"><font color="#0000CD">SNR</font></h3>
-<p>信噪比，输出信号的电压与伴随噪声的电压的比值。常用分贝数表示。其中“噪声”的简单定义就是：设备在处理信号的过程中自行产生的无用信号。SNR是衡量信号质量的一个重要标准，输出信号的SNR值越高，就说明输出信号中噪声的比重越小，信号的保真度越高。</p>
+        <h3 id="问题描述"><font color="#B22222">问题描述</font></h3>
+<p>硬件平台：STM32F4-Discovery开发板<br><br>软&nbsp;  &nbsp;  &nbsp;  &nbsp;件：直接采用<a href="http://www.stmcu.org/download/index.php?act=down&amp;id=3080" target="_blank" rel="external"><strong>STM32_USB-Host-Device_Lib_V2.1.0</strong></a>官方例程库中的<em>USB_Device_Examples——&gt;DFU</em>工程<br><br>现&nbsp;  &nbsp;  &nbsp;  &nbsp;象：接入电脑（下载完程序），显示<strong><font color="#B22222">unknown device</font></strong><br><br>具体描述：USB接口原理图如下：<br></p>
+<p><center><img src="" alt="alt jpg"></center><br></p>
+<p>该原理图截取自STM32F4-Discovery开发板。其实可以简化至只有USB_DM、USB_DP两根线</p>
 
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://polariss.com/2014/09/06/LQI、RSSI、SNR/" data-id="j8l87csx0xoknltn" class="article-share-link">Share</a>
+      <a data-url="http://polariss.com/2014/09/18/STM32F40x_USB_DFU/" data-id="ch50g73tnppzzfmp" class="article-share-link">Share</a>
       
-        <a href="http://polariss.com/2014/09/06/LQI、RSSI、SNR/#disqus_thread" class="article-comment-link">Comments</a>
+        <a href="http://polariss.com/2014/09/18/STM32F40x_USB_DFU/#disqus_thread" class="article-comment-link">Comments</a>
       
       
-  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/RF/">RF</a></li></ul>
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/STM32/">STM32</a></li></ul>
 
     </footer>
   </div>
@@ -136,8 +132,7 @@
     
     <div class="article-entry" itemprop="articleBody">
       
-        <h2 id="C运行库">C运行库</h2>
-<p>前几天参加一家公司的面试，笔试时碰到了这么一个问题：<strong><font color="#0000ff">解释一下C运行库的意义和用途</font></strong>。哎，学艺不精，整好从来没留意过这个概念，回来之后当然是要搞懂这个传说中的C运行库到底是个神马玩意儿了。下面就把从网上搜集的资料总结了一下，记录下来，前事不忘后事之师嘛。</p>
+        <p>前几天参加一家公司的面试，笔试时碰到了这么一个问题：<strong><font color="#0000ff">解释一下C运行库的意义和用途</font></strong>。哎，学艺不精，整好从来没留意过这个概念，回来之后当然是要搞懂这个传说中的C运行库到底是个神马玩意儿了。下面就把从网上搜集的资料总结了一下，记录下来，前事不忘后事之师嘛。</p>
 <h3 id="什么是运行库"><li>什么是运行库</li></h3>
 <p>任何一个C程序，它的背后都有一套庞大的代码来进行支撑，以使得该程序能够正常运行。这套代码至少包括入口函数，及其所依赖的函数所构成的函数集合。当然，它还理应包括各种标准库函数的实现。这样的一个代码集合称之为<font color="#ff0000">运行库（Runtime Library）</font>。而C语言的运行库，即被称为C运行库（CRT-C Runtime Library）。</p><p></p>
 <h3 id="C运行库的功能"><li>C运行库的功能</li></h3>
@@ -153,6 +148,7 @@
 <hr>
 
 <h3 id="要点总结：">要点总结：</h3>
+<blockquote>
 <ol>
 <li><p><strong>C语言标准库</strong>是C语言标准化的基础函数库，它定义了C语言中普遍存在的函数集合。我们可以放心地使用标准库中规定的函数而不用担心在将代码移          植到别的平台时对应的平台上不提供这个函数。</p>
 </li>
@@ -165,11 +161,12 @@
 <li><p>Windows环境下，VC提供的 C Runtime Library又分为<strong>动态运行时库</strong>和<strong>静态运行时库</strong>。<br>动态运行时库主要是DLL库文件msvcrt.dll(or SVCRTD.DLL for debug build),对应的Import library文件是MSVCRT.LIB(MSVCRTD.LIB for debug build)；<br>静态运行时库(release版)对应的主要文件是：LIBC.LIB (Single thread static library, retail version)LIBCMT.LIB (Multithread static library, retail version)</p>
 </li>
 </ol>
+</blockquote>
 
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://polariss.com/2014/09/06/C  Runtime Library/" data-id="1vwaegjq2nvwrkr4" class="article-share-link">Share</a>
+      <a data-url="http://polariss.com/2014/09/06/C  Runtime Library/" data-id="ns1z3ag5aac7c5q2" class="article-share-link">Share</a>
       
         <a href="http://polariss.com/2014/09/06/C  Runtime Library/#disqus_thread" class="article-comment-link">Comments</a>
       
@@ -219,12 +216,60 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://polariss.com/2014/09/06/Buletooth001/" data-id="ah8nx3xni3kmakub" class="article-share-link">Share</a>
+      <a data-url="http://polariss.com/2014/09/06/Buletooth001/" data-id="ehvaq1oql59bgi0n" class="article-share-link">Share</a>
       
         <a href="http://polariss.com/2014/09/06/Buletooth001/#disqus_thread" class="article-comment-link">Comments</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Buletooth/">Buletooth</a></li></ul>
+
+    </footer>
+  </div>
+  
+</article>
+
+
+  
+    <article id="post-LQI、RSSI、SNR" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2014/09/06/LQI、RSSI、SNR/" class="article-date">
+  <time datetime="2014-09-06T12:30:00.000Z" itemprop="datePublished">9月 6 2014</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2014/09/06/LQI、RSSI、SNR/">LQI、RSSI、SNR</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h2 id="关键词汇解释"><font color="#0000CD">关键词汇解释</font></h2>
+<h3 id="LQI"><font color="#0000CD">LQI</font></h3>
+<p>IEEE802.15.4标准中对<strong>LQI(Link Quality Indicator)</strong>的说明如下：LQI用来描述接收到数据包的强度和/或质量。通过接收端ED(Dnergy Detection),信噪比估值等变量计算得到。并由网络层或应用层调用。</p>
+<p>每一包接收到的数据都应该获取其LQI值，并报告给MAC层。LQI的取值是0x00到0xFF之间的整数，其中0x00和0xFF分别对应着信号质量最差和信号质量最好的情况。所有测到的LQ(Link Quality)值应该都应该分布在这两个极限值之间。<em>至少需要8个唯一的LQ值</em>(这一句话什么意思？)。</p>
+<h3 id="RSSI"><font color="#0000CD">RSSI</font></h3>
+<p><strong>RSSI(Received Signal Strength Indication)</strong>顾名思义，接收信号强度指示。通俗的说，该值越大，就说明信号越好，通信质量越有保证。</p>
+<h3 id="SNR"><font color="#0000CD">SNR</font></h3>
+<p>信噪比，输出信号的电压与伴随噪声的电压的比值。常用分贝数表示。其中“噪声”的简单定义就是：设备在处理信号的过程中自行产生的无用信号。SNR是衡量信号质量的一个重要标准，输出信号的SNR值越高，就说明输出信号中噪声的比重越小，信号的保真度越高。</p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://polariss.com/2014/09/06/LQI、RSSI、SNR/" data-id="ys8cd54ckil4fs0u" class="article-share-link">Share</a>
+      
+        <a href="http://polariss.com/2014/09/06/LQI、RSSI、SNR/#disqus_thread" class="article-comment-link">Comments</a>
+      
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/RF/">RF</a></li></ul>
 
     </footer>
   </div>
@@ -244,7 +289,7 @@
   <div class="widget-wrap">
     <h3 class="widget-title">Tags</h3>
     <div class="widget">
-      <ul class="tag-list"><li class="tag-list-item"><a class="tag-list-link" href="/tags/Buletooth/">Buletooth</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/C/">C</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/RF/">RF</a><span class="tag-list-count">1</span></li></ul>
+      <ul class="tag-list"><li class="tag-list-item"><a class="tag-list-link" href="/tags/Buletooth/">Buletooth</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/C/">C</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/RF/">RF</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/STM32/">STM32</a><span class="tag-list-count">1</span></li></ul>
     </div>
   </div>
 
@@ -253,7 +298,7 @@
   <div class="widget-wrap">
     <h3 class="widget-title">Tag Cloud</h3>
     <div class="widget tagcloud">
-      <a href="/tags/Buletooth/" style="font-size: NaNpx;">Buletooth</a><a href="/tags/C/" style="font-size: NaNpx;">C</a><a href="/tags/RF/" style="font-size: NaNpx;">RF</a>
+      <a href="/tags/Buletooth/" style="font-size: NaNpx;">Buletooth</a><a href="/tags/C/" style="font-size: NaNpx;">C</a><a href="/tags/RF/" style="font-size: NaNpx;">RF</a><a href="/tags/STM32/" style="font-size: NaNpx;">STM32</a>
     </div>
   </div>
 
@@ -262,7 +307,7 @@
   <div class="widget-wrap">
     <h3 class="widget-title">Archives</h3>
     <div class="widget">
-      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2014/09">September 2014</a><span class="archive-list-count">3</span></li></ul>
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2014/09">September 2014</a><span class="archive-list-count">4</span></li></ul>
     </div>
   </div>
 
@@ -274,7 +319,7 @@
       <ul>
         
           <li>
-            <a href="/2014/09/06/LQI、RSSI、SNR/">LQI、RSSI、SNR</a>
+            <a href="/2014/09/18/STM32F40x_USB_DFU/">用STM32F40x的USB接口实现DFU功能时碰到的奇葩事儿</a>
           </li>
         
           <li>
@@ -283,6 +328,10 @@
         
           <li>
             <a href="/2014/09/06/Buletooth001/">Buletools学习之路-001</a>
+          </li>
+        
+          <li>
+            <a href="/2014/09/06/LQI、RSSI、SNR/">LQI、RSSI、SNR</a>
           </li>
         
       </ul>
