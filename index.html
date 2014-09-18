@@ -66,9 +66,9 @@
       <div class="outer">
         <section id="main">
   
-    <article id="post-Buletooth001" class="article article-type-post" itemscope itemprop="blogPost">
+    <article id="post-LQI、RSSI、SNR" class="article article-type-post" itemscope itemprop="blogPost">
   <div class="article-meta">
-    <a href="/2014/09/06/Buletooth001/" class="article-date">
+    <a href="/2014/09/06/LQI、RSSI、SNR/" class="article-date">
   <time datetime="2014-09-06T12:30:00.000Z" itemprop="datePublished">9月 6 2014</time>
 </a>
     
@@ -80,7 +80,7 @@
         
   
     <h1 itemprop="name">
-      <a class="article-title" href="/2014/09/06/Buletooth001/">Buletools学习之路-001</a>
+      <a class="article-title" href="/2014/09/06/LQI、RSSI、SNR/">LQI、RSSI、SNR</a>
     </h1>
   
 
@@ -88,26 +88,24 @@
     
     <div class="article-entry" itemprop="articleBody">
       
-        <h2 id="纯吐槽">纯吐槽</h2>
-<p>中秋节上午下的订单，买了一套网蜂团队出品的Buletooth 4.0开发板，标价199RMB，把SmartRF04EB仿真器更换成了CCDebugger，又添加了40块大洋。为了楼主刚开始做的梦，楼主这回豁出去了…<br></p>
-<p>今天上午收到了开发板套件，楼主心中那个激动啊，心里的小鹿砰砰撞呢，哈哈。中午吃完饭回家后打开盒子一看，矮油，还不错哟，包装的挺好，还送了一个钥匙坠，好开心。But！！当我仔细看完两个开发板时，发现好像哪里不对劲了。楼主本来中午安排好睡觉觉的，可是仔细审视这两个开发板后，就再也睡不着了。尼玛，这两个板子是一个爹妈生的吗？差别也太大了。网蜂当楼主是刚入门不懂事的小弟么？<br></p>
-<p>晚上下班后，楼主再也不能忍了，决定直接上旺旺质问客服。这一问，楼主彻底不想多说了。这里就总结一下第一次跟网蜂团队接触的吐槽点吧：<br></p>
-<pre><code><span class="bullet">1.    </span>开发板做的不算太精致，甚至板子还有毛边和锡渍
-<span class="bullet">2.    </span>新老版本变动太大，升级必然会出现阻碍
-<span class="bullet">3.    </span>不厚道，给客户发了一个新版本一个旧版本算什么？而且两个版本的原理图还不兼容。觉得客户都是愣头青？
-<span class="bullet">4.    </span>找的客服太冷淡，是觉得自己的团队技术够牛逼，不用在意这些细节么？
-</code></pre><p>其他的细节问题楼主还没有发现，晚上基本上安装安装驱动，吐吐槽，就该睡觉了。<br></p>
-<p>以上言论纯属个人吐槽，不涉及商业竞争什么的。</p>
+        <h2 id="关键词汇解释"><font color="#0000CD">关键词汇解释</font></h2>
+<h3 id="LQI"><font color="#0000CD">LQI</font></h3>
+<p>IEEE802.15.4标准中对<strong>LQI(Link Quality Indicator)</strong>的说明如下：LQI用来描述接收到数据包的强度和/或质量。通过接收端ED(Dnergy Detection),信噪比估值等变量计算得到。并由网络层或应用层调用。</p>
+<p>每一包接收到的数据都应该获取其LQI值，并报告给MAC层。LQI的取值是0x00到0xFF之间的整数，其中0x00和0xFF分别对应着信号质量最差和信号质量最好的情况。所有测到的LQ(Link Quality)值应该都应该分布在这两个极限值之间。<em>至少需要8个唯一的LQ值</em>(这一句话什么意思？)。</p>
+<h3 id="RSSI"><font color="#0000CD">RSSI</font></h3>
+<p><strong>RSSI(Received Signal Strength Indication)</strong>顾名思义，接收信号强度指示。通俗的说，该值越大，就说明信号越好，通信质量越有保证。</p>
+<h3 id="SNR"><font color="#0000CD">SNR</font></h3>
+<p>信噪比，输出信号的电压与伴随噪声的电压的比值。常用分贝数表示。其中“噪声”的简单定义就是：设备在处理信号的过程中自行产生的无用信号。SNR是衡量信号质量的一个重要标准，输出信号的SNR值越高，就说明输出信号中噪声的比重越小，信号的保真度越高。</p>
 
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://polariss.com/2014/09/06/Buletooth001/" data-id="qvb7xugzap6u66ev" class="article-share-link">Share</a>
+      <a data-url="http://polariss.com/2014/09/06/LQI、RSSI、SNR/" data-id="j8l87csx0xoknltn" class="article-share-link">Share</a>
       
-        <a href="http://polariss.com/2014/09/06/Buletooth001/#disqus_thread" class="article-comment-link">Comments</a>
+        <a href="http://polariss.com/2014/09/06/LQI、RSSI、SNR/#disqus_thread" class="article-comment-link">Comments</a>
       
       
-  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Buletooth/">Buletooth</a></li></ul>
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/RF/">RF</a></li></ul>
 
     </footer>
   </div>
@@ -171,7 +169,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://polariss.com/2014/09/06/C  Runtime Library/" data-id="mkpomu8rl79q2qix" class="article-share-link">Share</a>
+      <a data-url="http://polariss.com/2014/09/06/C  Runtime Library/" data-id="1vwaegjq2nvwrkr4" class="article-share-link">Share</a>
       
         <a href="http://polariss.com/2014/09/06/C  Runtime Library/#disqus_thread" class="article-comment-link">Comments</a>
       
@@ -185,9 +183,9 @@
 
 
   
-    <article id="post-LQI、RSSI、SNR" class="article article-type-post" itemscope itemprop="blogPost">
+    <article id="post-Buletooth001" class="article article-type-post" itemscope itemprop="blogPost">
   <div class="article-meta">
-    <a href="/2014/09/06/LQI、RSSI、SNR/" class="article-date">
+    <a href="/2014/09/06/Buletooth001/" class="article-date">
   <time datetime="2014-09-06T12:30:00.000Z" itemprop="datePublished">9月 6 2014</time>
 </a>
     
@@ -199,7 +197,7 @@
         
   
     <h1 itemprop="name">
-      <a class="article-title" href="/2014/09/06/LQI、RSSI、SNR/">LQI、RSSI、SNR</a>
+      <a class="article-title" href="/2014/09/06/Buletooth001/">Buletools学习之路-001</a>
     </h1>
   
 
@@ -207,24 +205,26 @@
     
     <div class="article-entry" itemprop="articleBody">
       
-        <h1 id="关键词汇解释"><font color="#0000CD">关键词汇解释</font></h1>
-<h2 id="LQI"><font color="#FF4500">LQI</font></h2>
-<p>IEEE802.15.4标准中对<strong>LQI(Link Quality Indicator)</strong>的说明如下：LQI用来描述接收到数据包的强度和/或质量。通过接收端ED(Dnergy Detection),信噪比估值等变量计算得到。并由网络层或应用层调用。</p>
-<p>每一包接收到的数据都应该获取其LQI值，并报告给MAC层。LQI的取值是0x00到0xFF之间的整数，其中0x00和0xFF分别对应着信号质量最差和信号质量最好的情况。所有测到的LQ(Link Quality)值应该都应该分布在这两个极限值之间。<em>至少需要8个唯一的LQ值</em>(这一句话什么意思？)。</p>
-<h2 id="RSSI"><font color="#FF4500">RSSI</font></h2>
-<p><strong>RSSI(Received Signal Strength Indication)</strong>顾名思义，接收信号强度指示。通俗的说，该值越大，就说明信号越好，通信质量越有保证。</p>
-<h2 id="SNR"><font color="#FF4500">SNR</font></h2>
-<p>信噪比，输出信号的电压与伴随噪声的电压的比值。常用分贝数表示。其中“噪声”的简单定义就是：设备在处理信号的过程中自行产生的无用信号。SNR是衡量信号质量的一个重要标准，输出信号的SNR值越高，就说明输出信号中噪声的比重越小，信号的保真度越高。</p>
+        <h2 id="纯吐槽">纯吐槽</h2>
+<p>中秋节上午下的订单，买了一套网蜂团队出品的Buletooth 4.0开发板，标价199RMB，把SmartRF04EB仿真器更换成了CCDebugger，又添加了40块大洋。为了楼主刚开始做的梦，楼主这回豁出去了…<br></p>
+<p>今天上午收到了开发板套件，楼主心中那个激动啊，心里的小鹿砰砰撞呢，哈哈。中午吃完饭回家后打开盒子一看，矮油，还不错哟，包装的挺好，还送了一个钥匙坠，好开心。But！！当我仔细看完两个开发板时，发现好像哪里不对劲了。楼主本来中午安排好睡觉觉的，可是仔细审视这两个开发板后，就再也睡不着了。尼玛，这两个板子是一个爹妈生的吗？差别也太大了。网蜂当楼主是刚入门不懂事的小弟么？<br></p>
+<p>晚上下班后，楼主再也不能忍了，决定直接上旺旺质问客服。这一问，楼主彻底不想多说了。这里就总结一下第一次跟网蜂团队接触的吐槽点吧：<br></p>
+<pre><code><span class="bullet">1.    </span>开发板做的不算太精致，甚至板子还有毛边和锡渍
+<span class="bullet">2.    </span>新老版本变动太大，升级必然会出现阻碍
+<span class="bullet">3.    </span>不厚道，给客户发了一个新版本一个旧版本算什么？而且两个版本的原理图还不兼容。觉得客户都是愣头青？
+<span class="bullet">4.    </span>找的客服太冷淡，是觉得自己的团队技术够牛逼，不用在意这些细节么？
+</code></pre><p>其他的细节问题楼主还没有发现，晚上基本上安装安装驱动，吐吐槽，就该睡觉了。<br></p>
+<p>以上言论纯属个人吐槽，不涉及商业竞争什么的。</p>
 
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://polariss.com/2014/09/06/LQI、RSSI、SNR/" data-id="h67r2wy3pnhyp0gt" class="article-share-link">Share</a>
+      <a data-url="http://polariss.com/2014/09/06/Buletooth001/" data-id="ah8nx3xni3kmakub" class="article-share-link">Share</a>
       
-        <a href="http://polariss.com/2014/09/06/LQI、RSSI、SNR/#disqus_thread" class="article-comment-link">Comments</a>
+        <a href="http://polariss.com/2014/09/06/Buletooth001/#disqus_thread" class="article-comment-link">Comments</a>
       
       
-  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/RF/">RF</a></li></ul>
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Buletooth/">Buletooth</a></li></ul>
 
     </footer>
   </div>
@@ -274,7 +274,7 @@
       <ul>
         
           <li>
-            <a href="/2014/09/06/Buletooth001/">Buletools学习之路-001</a>
+            <a href="/2014/09/06/LQI、RSSI、SNR/">LQI、RSSI、SNR</a>
           </li>
         
           <li>
@@ -282,7 +282,7 @@
           </li>
         
           <li>
-            <a href="/2014/09/06/LQI、RSSI、SNR/">LQI、RSSI、SNR</a>
+            <a href="/2014/09/06/Buletooth001/">Buletools学习之路-001</a>
           </li>
         
       </ul>
