@@ -93,19 +93,13 @@
 <p>硬件平台：STM32F4-Discovery开发板<br><br>软&nbsp;  &nbsp;  &nbsp;  &nbsp;件：直接采用<a href="http://www.stmcu.org/download/index.php?act=down&amp;id=3080" target="_blank" rel="external"><strong>STM32_USB-Host-Device_Lib_V2.1.0</strong></a>官方例程库中的<em>USB_Device_Examples——&gt;DFU</em>工程<br><br>现&nbsp;  &nbsp;  &nbsp;  &nbsp;象：接入电脑（下载完程序），显示<strong><font color="#B22222">unknown device</font></strong><br><br>具体描述：USB接口原理图如下：<br></p>
 <p><center><img src="" alt="alt jpg"></center><br></p>
 <p>该原理图截取自STM32F4-Discovery开发板。其实可以简化至只有USB_DM、USB_DP两根线</p>
-<p>‘’’ c<br>/<strong><strong><strong><strong><strong><strong>*</strong></strong></strong></strong></strong></strong> PLL Parameters <strong><strong><strong><strong><strong><strong><strong><strong><strong>*</strong></strong></strong></strong></strong></strong></strong></strong></strong>/<br>/<em> PLL_VCO = (HSE_VALUE or HSI_VALUE / PLL_M) </em> PLL_N */</p>
-<h1 id="define_PLL_M_8">define PLL_M      8</h1>
-<h1 id="define_PLL_N_336">define PLL_N      336</h1>
-<p>/<em> SYSCLK = PLL_VCO / PLL_P </em>/</p>
-<h1 id="define_PLL_P_2">define PLL_P      2</h1>
-<p>/<em> USB OTG FS, SDIO and RNG Clock =  PLL_VCO / PLLQ </em>/</p>
-<h1 id="define_PLL_Q_7">define PLL_Q      7</h1>
-<p>/<strong><strong><strong><strong><strong><strong><strong><strong><strong><strong><strong><strong><strong><strong><strong><strong><strong><strong><strong>**</strong></strong></strong></strong></strong></strong></strong></strong></strong></strong></strong></strong></strong></strong></strong></strong></strong></strong></strong>/<br> ‘’’</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div></pre></td><td class="code"><pre><div class="line"><span class="comment">/************************* PLL Parameters *************************************/</span></div><div class="line"><span class="comment">/* PLL_VCO = (HSE_VALUE or HSI_VALUE / PLL_M) * PLL_N */</span></div><div class="line"><span class="preprocessor">#<span class="keyword">define</span> PLL_M      8</span></div><div class="line"><span class="preprocessor">#<span class="keyword">define</span> PLL_N      336</span></div><div class="line"></div><div class="line"><span class="comment">/* SYSCLK = PLL_VCO / PLL_P */</span></div><div class="line"><span class="preprocessor">#<span class="keyword">define</span> PLL_P      2</span></div><div class="line"></div><div class="line"><span class="comment">/* USB OTG FS, SDIO and RNG Clock =  PLL_VCO / PLLQ */</span></div><div class="line"><span class="preprocessor">#<span class="keyword">define</span> PLL_Q      7</span></div><div class="line"></div><div class="line"><span class="comment">/******************************************************************************/</span></div></pre></td></tr></table></figure>
+
 
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://polariss.com/2014/09/18/STM32F40x_USB_DFU/" data-id="u3px02aqxa52aqgl" class="article-share-link">Share</a>
+      <a data-url="http://polariss.com/2014/09/18/STM32F40x_USB_DFU/" data-id="ebd1oded84r4sd1k" class="article-share-link">Share</a>
       
         <a href="http://polariss.com/2014/09/18/STM32F40x_USB_DFU/#disqus_thread" class="article-comment-link">Comments</a>
       
@@ -183,11 +177,11 @@
           </li>
         
           <li>
-            <a href="/2014/09/06/Buletooth001/">Buletools学习之路-001</a>
+            <a href="/2014/09/06/C  Runtime Library/">C运行库</a>
           </li>
         
           <li>
-            <a href="/2014/09/06/C  Runtime Library/">C运行库</a>
+            <a href="/2014/09/06/Buletooth001/">Buletools学习之路-001</a>
           </li>
         
       </ul>
