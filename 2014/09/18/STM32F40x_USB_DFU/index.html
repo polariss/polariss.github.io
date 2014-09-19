@@ -93,11 +93,15 @@
 <p>硬件平台：STM32F4-Discovery开发板<br><br>软&nbsp;  &nbsp;  &nbsp;  &nbsp;件：直接采用<a href="http://www.stmcu.org/download/index.php?act=down&amp;id=3080" target="_blank" rel="external"><strong>STM32_USB-Host-Device_Lib_V2.1.0</strong></a>官方例程库中的<em>USB_Device_Examples——&gt;DFU</em>工程<br><br>现&nbsp;  &nbsp;  &nbsp;  &nbsp;象：接入电脑（下载完程序），显示<strong><font color="#B22222">unknown device</font></strong><br><br>具体描述：USB接口原理图如下：<br></p>
 <p><center><img src="" alt="alt jpg"></center><br></p>
 <p>该原理图截取自STM32F4-Discovery开发板。其实可以简化至只有USB_DM、USB_DP两根线</p>
+<p><code>/************************* PLL Parameters *************************************/</code><br><code>/* PLL_VCO = (HSE_VALUE or HSI_VALUE / PLL_M) * PLL_N */</code><br><code>#define PLL_M      8</code><br><code>#define PLL_N      336</code></p>
+<p><code>/* SYSCLK = PLL_VCO / PLL_P */</code><br><code>#define PLL_P      2</code></p>
+<p><code>/* USB OTG FS, SDIO and RNG Clock =  PLL_VCO / PLLQ */</code><br><code>#define PLL_Q      7</code></p>
+<p>/<strong><strong><strong><strong><strong><strong><strong><strong><strong><strong><strong><strong><strong><strong><strong><strong><strong><strong><strong>**</strong></strong></strong></strong></strong></strong></strong></strong></strong></strong></strong></strong></strong></strong></strong></strong></strong></strong></strong>/`</p>
 
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://polariss.com/2014/09/18/STM32F40x_USB_DFU/" data-id="ch50g73tnppzzfmp" class="article-share-link">Share</a>
+      <a data-url="http://polariss.com/2014/09/18/STM32F40x_USB_DFU/" data-id="8k3dutvdm5blw89n" class="article-share-link">Share</a>
       
         <a href="http://polariss.com/2014/09/18/STM32F40x_USB_DFU/#disqus_thread" class="article-comment-link">Comments</a>
       
@@ -175,11 +179,11 @@
           </li>
         
           <li>
-            <a href="/2014/09/06/Buletooth001/">Buletools学习之路-001</a>
+            <a href="/2014/09/06/LQI、RSSI、SNR/">LQI、RSSI、SNR</a>
           </li>
         
           <li>
-            <a href="/2014/09/06/LQI、RSSI、SNR/">LQI、RSSI、SNR</a>
+            <a href="/2014/09/06/Buletooth001/">Buletools学习之路-001</a>
           </li>
         
       </ul>
