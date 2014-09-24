@@ -102,21 +102,69 @@
 <p><br><br>修改为<br></p>
 <figure class="highlight c"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line"><span class="preprocessor">#<span class="keyword">define</span> PLL_M      8</span></div></pre></td></tr></table></figure>
 
-<p><br><br>再次编译，下载。就可以顺利解决问题了。<br><br><strong><em><font color="#FF0000">注意：此解决办法只针对板载晶振为8MHz的情况。但是也可反映同一类问题。</font></em></strong></p>
+<p><br><br>再次编译，下载。就可以顺利解决问题了。<br><br><strong><em><font color="#FF0000">注意：此解决办法只针对板载晶振为8MHz的情况。但是也可反应同一类问题。</font></em></strong></p>
 <h3 id="事后闲叙"><font color="#00FF00">事后闲叙</font></h3>
 <p>问题解决了，可是为什么问题会出在这里还没有认真分析。不仅要知其然，还要知其所以然嘛！<br></p>
-<p>其实看到这些宏定义的时候，就应该想到要看STM32F4的数据手册了。然后从前后文推再断出该宏定义应该是用于时钟配置的。这样，就有重点的去查找数据手册中的RCC章节，发现5.2节对PLL和LSE的作用进行了详细的解释。有兴趣的可以直接去看数据手册。我这里就用大白话简单的解释一下：<br><br>    1    采用外部晶振做时钟时，在stm32f4xx.h中的第98对晶振频率做了宏定义。根据注释，该处需要修改，或者在别处另作宏定义。（即使你不做定义，系统也会根据检测的值计算的，这就埋下了隐患！！）例程库中此处是25MHz。但是STM32F4-Discovery板载的是8MHz的晶振。<br>    2    根据数据手册说明，需要 1 &lt;= (HSE_VALUE/PLL_M)*PLL_N &lt;= 2 以便后面的计算中可以顺利的得出48MHz的时钟频率给USB_OTG_FS。例程库将PLL_M设置成了25，这在板载晶振是25MHz的时候是没问题的。但是到了STM32F4-Discovery上，就出问题了。因为HSE_VALUE的实际值是8MHz。<br>    3    同样的道理，当你的板载晶振不是25MHz的时候，一定要注意对这两个文件中的两个宏定义进行修改。</p>
+<p>其实看到这些宏定义的时候，就应该想到要看STM32F4的数据手册了。然后从前后文再推断出该宏定义应该是用于时钟配置的。这样，就有重点的去查找数据手册中的RCC章节，发现5.2节对PLL和LSE的作用进行了详细的解释。有兴趣的可以直接去看数据手册。我这里就用大白话简单的解释一下：<br><br>    1    采用外部晶振做时钟时，在stm32f4xx.h中的第98行对晶振频率做了宏定义。根据注释，该处需要修改，或者在别处另作宏定义。（即使你不做定义，系统也会根据检测的值计算的，这就埋下了隐患！！）例程库中此处是25MHz。但是STM32F4-Discovery板载的是8MHz的晶振。<br>    2    根据数据手册说明，需要 1MHz &lt;= (HSE_VALUE/PLL_M) &lt;= 2MHz 以便后面的计算中可以顺利的得出48MHz的时钟频率给USB_OTG_FS。例程库将PLL_M设置成了25，这在板载晶振是25MHz的时候是没问题的。但是到了STM32F4-Discovery上，就出问题了。因为HSE_VALUE的实际值是8MHz。<br>    3    同样的道理，当你的板载晶振不是25MHz的时候，一定要注意对这两个文件中的两个宏定义进行修改。</p>
 <p>事后想想，问题的解决似乎看起来就这么容易，可是当初在调试的过程中，楼主可算是费老劲了。总结起来，应该是<strong><em>对硬件的内部结构不求甚解造成了调试时，没有往这方面思考</em></strong>。</p>
 
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://polariss.com/2014/09/18/STM32F40x_USB_DFU/" data-id="jnkdez2crgcqe5pu" class="article-share-link">Share</a>
+      <a data-url="http://polariss.com/2014/09/18/STM32F40x_USB_DFU/" data-id="9z75d0xrt5wz59ju" class="article-share-link">Share</a>
       
         <a href="http://polariss.com/2014/09/18/STM32F40x_USB_DFU/#disqus_thread" class="article-comment-link">Comments</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/STM32/">STM32</a></li></ul>
+
+    </footer>
+  </div>
+  
+</article>
+
+
+  
+    <article id="post-LQI、RSSI、SNR" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2014/09/06/LQI、RSSI、SNR/" class="article-date">
+  <time datetime="2014-09-06T12:30:00.000Z" itemprop="datePublished">9月 6 2014</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2014/09/06/LQI、RSSI、SNR/">LQI、RSSI、SNR</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h2 id="关键词汇解释"><font color="#0000CD">关键词汇解释</font></h2>
+<h3 id="LQI"><font color="#0000CD">LQI</font></h3>
+<p>IEEE802.15.4标准中对<strong>LQI(Link Quality Indicator)</strong>的说明如下：LQI用来描述接收到数据包的强度和/或质量。通过接收端ED(Dnergy Detection),信噪比估值等变量计算得到。并由网络层或应用层调用。</p>
+<p>每一包接收到的数据都应该获取其LQI值，并报告给MAC层。LQI的取值是0x00到0xFF之间的整数，其中0x00和0xFF分别对应着信号质量最差和信号质量最好的情况。所有测到的LQ(Link Quality)值应该都应该分布在这两个极限值之间。<em>至少需要8个唯一的LQ值</em>(这一句话什么意思？)。</p>
+<h3 id="RSSI"><font color="#0000CD">RSSI</font></h3>
+<p><strong>RSSI(Received Signal Strength Indication)</strong>顾名思义，接收信号强度指示。通俗的说，该值越大，就说明信号越好，通信质量越有保证。</p>
+<h3 id="SNR"><font color="#0000CD">SNR</font></h3>
+<p>信噪比，输出信号的电压与伴随噪声的电压的比值。常用分贝数表示。其中“噪声”的简单定义就是：设备在处理信号的过程中自行产生的无用信号。SNR是衡量信号质量的一个重要标准，输出信号的SNR值越高，就说明输出信号中噪声的比重越小，信号的保真度越高。</p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://polariss.com/2014/09/06/LQI、RSSI、SNR/" data-id="sxon1buibbuw6vju" class="article-share-link">Share</a>
+      
+        <a href="http://polariss.com/2014/09/06/LQI、RSSI、SNR/#disqus_thread" class="article-comment-link">Comments</a>
+      
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/RF/">RF</a></li></ul>
 
     </footer>
   </div>
@@ -169,60 +217,12 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://polariss.com/2014/09/06/C  Runtime Library/" data-id="s91nqo8pirrwh3yj" class="article-share-link">Share</a>
+      <a data-url="http://polariss.com/2014/09/06/C  Runtime Library/" data-id="qpol0qzdm0n40wp2" class="article-share-link">Share</a>
       
         <a href="http://polariss.com/2014/09/06/C  Runtime Library/#disqus_thread" class="article-comment-link">Comments</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/C/">C</a></li></ul>
-
-    </footer>
-  </div>
-  
-</article>
-
-
-  
-    <article id="post-LQI、RSSI、SNR" class="article article-type-post" itemscope itemprop="blogPost">
-  <div class="article-meta">
-    <a href="/2014/09/06/LQI、RSSI、SNR/" class="article-date">
-  <time datetime="2014-09-06T12:30:00.000Z" itemprop="datePublished">9月 6 2014</time>
-</a>
-    
-  </div>
-  <div class="article-inner">
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2014/09/06/LQI、RSSI、SNR/">LQI、RSSI、SNR</a>
-    </h1>
-  
-
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <h2 id="关键词汇解释"><font color="#0000CD">关键词汇解释</font></h2>
-<h3 id="LQI"><font color="#0000CD">LQI</font></h3>
-<p>IEEE802.15.4标准中对<strong>LQI(Link Quality Indicator)</strong>的说明如下：LQI用来描述接收到数据包的强度和/或质量。通过接收端ED(Dnergy Detection),信噪比估值等变量计算得到。并由网络层或应用层调用。</p>
-<p>每一包接收到的数据都应该获取其LQI值，并报告给MAC层。LQI的取值是0x00到0xFF之间的整数，其中0x00和0xFF分别对应着信号质量最差和信号质量最好的情况。所有测到的LQ(Link Quality)值应该都应该分布在这两个极限值之间。<em>至少需要8个唯一的LQ值</em>(这一句话什么意思？)。</p>
-<h3 id="RSSI"><font color="#0000CD">RSSI</font></h3>
-<p><strong>RSSI(Received Signal Strength Indication)</strong>顾名思义，接收信号强度指示。通俗的说，该值越大，就说明信号越好，通信质量越有保证。</p>
-<h3 id="SNR"><font color="#0000CD">SNR</font></h3>
-<p>信噪比，输出信号的电压与伴随噪声的电压的比值。常用分贝数表示。其中“噪声”的简单定义就是：设备在处理信号的过程中自行产生的无用信号。SNR是衡量信号质量的一个重要标准，输出信号的SNR值越高，就说明输出信号中噪声的比重越小，信号的保真度越高。</p>
-
-      
-    </div>
-    <footer class="article-footer">
-      <a data-url="http://polariss.com/2014/09/06/LQI、RSSI、SNR/" data-id="fgvj24361bqqtbiv" class="article-share-link">Share</a>
-      
-        <a href="http://polariss.com/2014/09/06/LQI、RSSI、SNR/#disqus_thread" class="article-comment-link">Comments</a>
-      
-      
-  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/RF/">RF</a></li></ul>
 
     </footer>
   </div>
@@ -267,7 +267,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://polariss.com/2014/09/06/Buletooth001/" data-id="148nfy647yms7005" class="article-share-link">Share</a>
+      <a data-url="http://polariss.com/2014/09/06/Buletooth001/" data-id="rut03nk3yiienlis" class="article-share-link">Share</a>
       
         <a href="http://polariss.com/2014/09/06/Buletooth001/#disqus_thread" class="article-comment-link">Comments</a>
       
@@ -326,11 +326,11 @@
           </li>
         
           <li>
-            <a href="/2014/09/06/C  Runtime Library/">C运行库</a>
+            <a href="/2014/09/06/LQI、RSSI、SNR/">LQI、RSSI、SNR</a>
           </li>
         
           <li>
-            <a href="/2014/09/06/LQI、RSSI、SNR/">LQI、RSSI、SNR</a>
+            <a href="/2014/09/06/C  Runtime Library/">C运行库</a>
           </li>
         
           <li>
