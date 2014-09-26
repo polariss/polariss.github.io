@@ -66,65 +66,36 @@
       <div class="outer">
         <section id="main">
   
-    <article id="post-STM32F40x_USB_DFU" class="article article-type-post" itemscope itemprop="blogPost">
-  <div class="article-meta">
-    <a href="/2014/09/18/STM32F40x_USB_DFU/" class="article-date">
-  <time datetime="2014-09-18T15:37:08.000Z" itemprop="datePublished">9月 18 2014</time>
+  
+    
+    
+      
+      
+      <section class="archives-wrap">
+        <div class="archive-year-wrap">
+          <a href="/archives/2014" class="archive-year">2014</a>
+        </div>
+        <div class="archives">
+    
+    <article class="archive-article archive-type-post">
+  <div class="archive-article-inner">
+    <header class="archive-article-header">
+      <a href="/2014/09/18/STM32F40x_USB_DFU/" class="archive-article-date">
+  <time datetime="2014-09-18T15:37:08.000Z" itemprop="datePublished">9月 18</time>
 </a>
-    
-  </div>
-  <div class="article-inner">
-    
-    
-      <header class="article-header">
-        
+      
   
     <h1 itemprop="name">
-      <a class="article-title" href="/2014/09/18/STM32F40x_USB_DFU/">用STM32F40x的USB接口实现DFU功能时碰到的奇葩事儿</a>
+      <a class="archive-article-title" href="/2014/09/18/STM32F40x_USB_DFU/">用STM32F40x的USB接口实现DFU功能时碰到的奇葩事儿</a>
     </h1>
   
 
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <h3 id="问题描述"><font color="#B22222">问题描述</font></h3>
-<p>硬件平台：STM32F4-Discovery开发板<br><br>软&nbsp;  &nbsp;  &nbsp;  &nbsp;件：直接采用<a href="http://www.stmcu.org/download/index.php?act=down&amp;id=3080" target="_blank" rel="external"><strong>STM32_USB-Host-Device_Lib_V2.1.0</strong></a>官方例程库中的<em>USB_Device_Examples——&gt;DFU</em>工程<br><br>现&nbsp;  &nbsp;  &nbsp;  &nbsp;象：接入电脑（下载完程序），显示<strong><font color="#B22222">unknown device</font></strong><br><br>具体描述：USB接口原理图如下：<br></p>
-<p><center><img src="/images/STM32F4_USB_Interface.JPG" alt="STM32F4_USB_FS"></center><br></p>
-<p>该原理图截取自STM32F4-Discovery开发板。其实可以简化至只有USB_DM、USB_DP两根线。STM32F4-Discovery开发板提供的官方例程库中是将USB接口作为Host模式枚举为了DFU模式。因为项目要求，需要将其配置为Device模式，所以果断移植STM32_USB-Host-Device_Lib_V2.1.0固件库中的工程。按照相关手册的介绍，完全可以实现STM32F40x单片机的USB接口作为Device的DFU类完成枚举，并在<em>设备管理器</em>中显示 <strong>DFU FS Mode</strong>的盘符。但是在完成上述步骤以后，接入电脑，却发现电脑显示的是<strong>unknown device</strong> 双击后发现属性框显示“没有驱动”的相关字样。</p>
-<h3 id="解决方法"><font color="#0000FF">解决方法</font></h3>
-<p>在<strong><font color="#B22222">system_stm32f4xx.c</font></strong>文件中大概153行处有以下代码：<br></p>
-<figure class="highlight c"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div></pre></td><td class="code"><pre><div class="line"><span class="comment">/************************* PLL Parameters *************************************/</span></div><div class="line"><span class="comment">/* PLL_VCO = (HSE_VALUE or HSI_VALUE / PLL_M) * PLL_N */</span></div><div class="line"><span class="preprocessor">#<span class="keyword">define</span> PLL_M      25</span></div><div class="line"><span class="preprocessor">#<span class="keyword">define</span> PLL_N      336</span></div><div class="line"></div><div class="line"><span class="comment">/* SYSCLK = PLL_VCO / PLL_P */</span></div><div class="line"><span class="preprocessor">#<span class="keyword">define</span> PLL_P      2</span></div><div class="line"></div><div class="line"><span class="comment">/* USB OTG FS, SDIO and RNG Clock =  PLL_VCO / PLLQ */</span></div><div class="line"><span class="preprocessor">#<span class="keyword">define</span> PLL_Q      7</span></div><div class="line"></div><div class="line"><span class="comment">/******************************************************************************/</span></div></pre></td></tr></table></figure>
-
-<p>将第三行中的<br></p>
-<figure class="highlight c"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line"><span class="preprocessor">#<span class="keyword">define</span> PLL_M      25</span></div></pre></td></tr></table></figure>
-
-<p><br><br>修改为<br></p>
-<figure class="highlight c"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line"><span class="preprocessor">#<span class="keyword">define</span> PLL_M      8</span></div></pre></td></tr></table></figure>
-
-<p><br><br>再次编译，下载。就可以顺利解决问题了。<br><br><strong><em><font color="#FF0000">注意：此解决办法只针对板载晶振为8MHz的情况。但是也可反应同一类问题。</font></em></strong></p>
-<h3 id="事后闲叙"><font color="#00FF00">事后闲叙</font></h3>
-<p>问题解决了，可是为什么问题会出在这里还没有认真分析。不仅要知其然，还要知其所以然嘛！<br></p>
-<p>其实看到这些宏定义的时候，就应该想到要看STM32F4的数据手册了。然后从前后文再推断出该宏定义应该是用于时钟配置的。这样，就有重点的去查找数据手册中的RCC章节，发现5.2节对PLL和LSE的作用进行了详细的解释。有兴趣的可以直接去看数据手册。我这里就用大白话简单的解释一下：<br><br><strong>1.采用外部晶振做时钟时，在stm32f4xx.h中的第98行对晶振频率做了宏定义。根据注释，该处需要修改，或者在别处另作宏定义。（即使你不做定义，这里系统也会根据检测的值计算的，但是在其地方的时钟配置会出现问题。这就埋下了隐患！！）例程库中此处是25MHz。但是STM32F4-Discovery板载的是8MHz的晶振。<br><br>2.根据数据手册说明，需要 1MHz &lt;= (HSE_VALUE/PLL_M) &lt;= 2MHz 以便后面的计算中可以顺利的得出48MHz的时钟频率给USB_OTG_FS。例程库将PLL_M设置成了25，这在板载晶振是25MHz的时候是没问题的。但是到了STM32F4-Discovery上，就出问题了。因为HSE_VALUE的实际值是8MHz。<br><br>3.同样的道理，当你的板载晶振不是25MHz的时候，一定要注意对这两个文件中的两个宏定义进行修改。<br></strong></p>
-<p>事后想想，问题的解决似乎看起来就这么容易，可是当初在调试的过程中，楼主可算是费老劲了。总结起来，应该是<strong><em>对硬件的内部结构不求甚解造成了调试时，没有往这方面思考</em></strong>。</p>
-
-      
-    </div>
-    <footer class="article-footer">
-      <a data-url="http://polariss.com/2014/09/18/STM32F40x_USB_DFU/" data-id="fbm8758qxr1m52sz" class="article-share-link">Share</a>
-      
-        <a href="http://polariss.com/2014/09/18/STM32F40x_USB_DFU/#disqus_thread" class="article-comment-link">Comments</a>
-      
-      
-  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/STM32/">STM32</a></li></ul>
-
-    </footer>
+    </header>
   </div>
-  
 </article>
-
-
   
+  
+    </div></section>
   
 </section>
         
