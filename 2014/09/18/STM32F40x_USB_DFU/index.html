@@ -107,13 +107,16 @@
 <p><br><br>再次编译，下载。就可以顺利解决问题了。<br><br><strong><em><font color="#FF0000">注意：此解决办法只针对板载晶振为8MHz的情况。但是也可反应同一类问题。</font></em></strong></p>
 <h3 id="事后闲叙"><font color="#00FF00">事后闲叙</font></h3>
 <p>问题解决了，可是为什么问题会出在这里还没有认真分析。不仅要知其然，还要知其所以然嘛！<br></p>
-<p>其实看到这些宏定义的时候，就应该想到要看STM32F4的数据手册了。然后从前后文再推断出该宏定义应该是用于时钟配置的。这样，就有重点的去查找数据手册中的RCC章节，发现5.2节对PLL和LSE的作用进行了详细的解释。有兴趣的可以直接去看数据手册。我这里就用大白话简单的解释一下：<br><br>    1 采用外部晶振做时钟时，在stm32f4xx.h中的第98行对晶振频率做了宏定义。根据注释，该处需要修改，或者在别处另作宏定义。（即使你不做定义，这里系统也会根据检测的值计算的，但是在其地方的时钟配置会出现问题。这就埋下了隐患！！）例程库中此处是25MHz。但是STM32F4-Discovery板载的是8MHz的晶振。<br>    2 根据数据手册说明，需要 1MHz &lt;= (HSE_VALUE/PLL_M) &lt;= 2MHz 以便后面的计算中可以顺利的得出48MHz的时钟频率给USB_OTG_FS。例程库将PLL_M设置成了25，这在板载晶振是25MHz的时候是没问题的。但是到了STM32F4-Discovery上，就出问题了。因为HSE_VALUE的实际值是8MHz。<br>    3 同样的道理，当你的板载晶振不是25MHz的时候，一定要注意对这两个文件中的两个宏定义进行修改。</p>
-<p>事后想想，问题的解决似乎看起来就这么容易，可是当初在调试的过程中，楼主可算是费老劲了。总结起来，应该是<strong><em>对硬件的内部结构不求甚解造成了调试时，没有往这方面思考</em></strong>。</p>
+<p>其实看到这些宏定义的时候，就应该想到要看STM32F4的数据手册了。然后从前后文再推断出该宏定义应该是用于时钟配置的。这样，就有重点的去查找数据手册中的RCC章节，发现5.2节对PLL和LSE的作用进行了详细的解释。有兴趣的可以直接去看数据手册。我这里就用大白话简单的解释一下：<br></p>
+<pre><code><span class="bullet">1.    </span>采用外部晶振做时钟时，在stm32f4xx.h中的第98行对晶振频率做了宏定义。根据注释，该处需要修改，或者在别处另作宏定义。（即使你不做定义，这里系统也会根据检测的值计算的，但是在其地方的时钟配置会出现问题。这就埋下了隐患！！）例程库中此处是25MHz。但是STM32F4-Discovery板载的是8MHz的晶振。
+<span class="bullet">2.    </span>根据数据手册说明，需要 1MHz <span class="xml"><span class="tag">&lt;<span class="title">=</span> (<span class="attribute">HSE_VALUE</span>/<span class="attribute">PLL_M</span>) &lt;= <span class="attribute">2MHz</span> 以便后面的计算中可以顺利的得出<span class="attribute">48MHz</span>的时钟频率给<span class="attribute">USB_OTG_FS</span>。例程库将<span class="attribute">PLL_M</span>设置成了<span class="attribute">25</span>，这在板载晶振是<span class="attribute">25MHz</span>的时候是没问题的。但是到了<span class="attribute">STM32F4-Discovery</span>上，就出问题了。因为<span class="attribute">HSE_VALUE</span>的实际值是<span class="attribute">8MHz</span>。
+<span class="attribute">3.</span>    同样的道理，当你的板载晶振不是<span class="attribute">25MHz</span>的时候，一定要注意对这两个文件中的两个宏定义进行修改。</span></span>
+</code></pre><p>事后想想，问题的解决似乎看起来就这么容易，可是当初在调试的过程中，楼主可算是费老劲了。总结起来，应该是<strong><em>对硬件的内部结构不求甚解造成了调试时，没有往这方面思考</em></strong>。</p>
 
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://polariss.com/2014/09/18/STM32F40x_USB_DFU/" data-id="oxq4hxznq0i7s5cu" class="article-share-link">Share</a>
+      <a data-url="http://polariss.com/2014/09/18/STM32F40x_USB_DFU/" data-id="55qgnwz7mofzcqr6" class="article-share-link">Share</a>
       
         <a href="http://polariss.com/2014/09/18/STM32F40x_USB_DFU/#disqus_thread" class="article-comment-link">Comments</a>
       
