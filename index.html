@@ -66,47 +66,6 @@
       <div class="outer">
         <section id="main">
   
-    <article id="post-Test" class="article article-type-post" itemscope itemprop="blogPost">
-  <div class="article-meta">
-    <a href="/2014/09/26/Test/" class="article-date">
-  <time datetime="2014-09-26T15:37:08.000Z" itemprop="datePublished">9月 26 2014</time>
-</a>
-    
-  </div>
-  <div class="article-inner">
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2014/09/26/Test/">Hello Test</a>
-    </h1>
-  
-
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <h3 id="hello，This_is_a_test_blog_！">hello，This is a test blog ！</h3>
-
-      
-    </div>
-    <footer class="article-footer">
-      <a data-url="http://polariss.com/2014/09/26/Test/" data-id="i51lewt12eh82ra1" class="article-share-link">Share</a>
-      
-        <a href="http://polariss.com/2014/09/26/Test/#disqus_thread" class="article-comment-link">Comments</a>
-      
-      
-  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/STM32/">STM32</a></li></ul>
-
-    </footer>
-  </div>
-  
-</article>
-
-
-  
     <article id="post-STM32F40x_USB_DFU" class="article article-type-post" itemscope itemprop="blogPost">
   <div class="article-meta">
     <a href="/2014/09/18/STM32F40x_USB_DFU/" class="article-date">
@@ -146,13 +105,13 @@
 <p><br><br>再次编译，下载。就可以顺利解决问题了。<br><br><strong><em><font color="#FF0000">注意：此解决办法只针对板载晶振为8MHz的情况。但是也可反应同一类问题。</font></em></strong></p>
 <h3 id="事后闲叙"><font color="#00FF00">事后闲叙</font></h3>
 <p>问题解决了，可是为什么问题会出在这里还没有认真分析。不仅要知其然，还要知其所以然嘛！<br></p>
-<p>其实看到这些宏定义的时候，就应该想到要看STM32F4的数据手册了。然后从前后文再推断出该宏定义应该是用于时钟配置的。这样，就有重点的去查找数据手册中的RCC章节，发现5.2节对PLL和LSE的作用进行了详细的解释。有兴趣的可以直接去看数据手册。我这里就用大白话简单的解释一下：<br><br><strong><em>1.采用外部晶振做时钟时，在stm32f4xx.h中的第98行对晶振频率做了宏定义。根据注释，该处需要修改，或者在别处另作宏定义。（即使你不做定义，这里系统也会根据检测的值计算的，但是在其地方的时钟配置会出现问题。这就埋下了隐患！！）例程库中此处是25MHz。但是STM32F4-Discovery板载的是8MHz的晶振。<br><br>2.根据数据手册说明，需要 1MHz &lt;= (HSE_VALUE/PLL_M) &lt;= 2MHz 以便后面的计算中可以顺利的得出48MHz的时钟频率给USB_OTG_FS。例程库将PLL_M设置成了25，这在板载晶振是25MHz的时候是没问题的。但是到了STM32F4-Discovery上，就出问题了。因为HSE_VALUE的实际值是8MHz。<br><br>3.同样的道理，当你的板载晶振不是25MHz的时候，一定要注意对这两个文件中的两个宏定义进行修改。<br></em></strong></p>
+<p>其实看到这些宏定义的时候，就应该想到要看STM32F4的数据手册了。然后从前后文再推断出该宏定义应该是用于时钟配置的。这样，就有重点的去查找数据手册中的RCC章节，发现5.2节对PLL和LSE的作用进行了详细的解释。有兴趣的可以直接去看数据手册。我这里就用大白话简单的解释一下：<br><br><strong>1.采用外部晶振做时钟时，在stm32f4xx.h中的第98行对晶振频率做了宏定义。根据注释，该处需要修改，或者在别处另作宏定义。（即使你不做定义，这里系统也会根据检测的值计算的，但是在其地方的时钟配置会出现问题。这就埋下了隐患！！）例程库中此处是25MHz。但是STM32F4-Discovery板载的是8MHz的晶振。<br><br>2.根据数据手册说明，需要 1MHz &lt;= (HSE_VALUE/PLL_M) &lt;= 2MHz 以便后面的计算中可以顺利的得出48MHz的时钟频率给USB_OTG_FS。例程库将PLL_M设置成了25，这在板载晶振是25MHz的时候是没问题的。但是到了STM32F4-Discovery上，就出问题了。因为HSE_VALUE的实际值是8MHz。<br><br>3.同样的道理，当你的板载晶振不是25MHz的时候，一定要注意对这两个文件中的两个宏定义进行修改。<br></strong></p>
 <p>事后想想，问题的解决似乎看起来就这么容易，可是当初在调试的过程中，楼主可算是费老劲了。总结起来，应该是<strong><em>对硬件的内部结构不求甚解造成了调试时，没有往这方面思考</em></strong>。</p>
 
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://polariss.com/2014/09/18/STM32F40x_USB_DFU/" data-id="1jjcbin5rkpfek2s" class="article-share-link">Share</a>
+      <a data-url="http://polariss.com/2014/09/18/STM32F40x_USB_DFU/" data-id="t4kntnjiau66eulh" class="article-share-link">Share</a>
       
         <a href="http://polariss.com/2014/09/18/STM32F40x_USB_DFU/#disqus_thread" class="article-comment-link">Comments</a>
       
@@ -202,7 +161,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://polariss.com/2014/09/09/Buletooth001/" data-id="pjft4cwv33sq0lui" class="article-share-link">Share</a>
+      <a data-url="http://polariss.com/2014/09/09/Buletooth001/" data-id="ob5gq4iy1z5789i0" class="article-share-link">Share</a>
       
         <a href="http://polariss.com/2014/09/09/Buletooth001/#disqus_thread" class="article-comment-link">Comments</a>
       
@@ -250,7 +209,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://polariss.com/2014/09/06/LQI、RSSI、SNR/" data-id="lxvwb828rlt4eczi" class="article-share-link">Share</a>
+      <a data-url="http://polariss.com/2014/09/06/LQI、RSSI、SNR/" data-id="5w0c1x2v8853301z" class="article-share-link">Share</a>
       
         <a href="http://polariss.com/2014/09/06/LQI、RSSI、SNR/#disqus_thread" class="article-comment-link">Comments</a>
       
@@ -308,7 +267,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://polariss.com/2014/09/05/C  Runtime Library/" data-id="ap8gso0gcibv19db" class="article-share-link">Share</a>
+      <a data-url="http://polariss.com/2014/09/05/C  Runtime Library/" data-id="knq0zm2hj5qqb7ls" class="article-share-link">Share</a>
       
         <a href="http://polariss.com/2014/09/05/C  Runtime Library/#disqus_thread" class="article-comment-link">Comments</a>
       
@@ -333,7 +292,7 @@
   <div class="widget-wrap">
     <h3 class="widget-title">Tags</h3>
     <div class="widget">
-      <ul class="tag-list"><li class="tag-list-item"><a class="tag-list-link" href="/tags/Buletooth/">Buletooth</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/C/">C</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/RF/">RF</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/STM32/">STM32</a><span class="tag-list-count">2</span></li></ul>
+      <ul class="tag-list"><li class="tag-list-item"><a class="tag-list-link" href="/tags/Buletooth/">Buletooth</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/C/">C</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/RF/">RF</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/STM32/">STM32</a><span class="tag-list-count">1</span></li></ul>
     </div>
   </div>
 
@@ -342,7 +301,7 @@
   <div class="widget-wrap">
     <h3 class="widget-title">Tag Cloud</h3>
     <div class="widget tagcloud">
-      <a href="/tags/Buletooth/" style="font-size: 10.00px;">Buletooth</a><a href="/tags/C/" style="font-size: 10.00px;">C</a><a href="/tags/RF/" style="font-size: 10.00px;">RF</a><a href="/tags/STM32/" style="font-size: 20.00px;">STM32</a>
+      <a href="/tags/Buletooth/" style="font-size: NaNpx;">Buletooth</a><a href="/tags/C/" style="font-size: NaNpx;">C</a><a href="/tags/RF/" style="font-size: NaNpx;">RF</a><a href="/tags/STM32/" style="font-size: NaNpx;">STM32</a>
     </div>
   </div>
 
@@ -351,7 +310,7 @@
   <div class="widget-wrap">
     <h3 class="widget-title">Archives</h3>
     <div class="widget">
-      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2014/09/">September 2014</a><span class="archive-list-count">5</span></li></ul>
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2014/09/">September 2014</a><span class="archive-list-count">4</span></li></ul>
     </div>
   </div>
 
@@ -361,10 +320,6 @@
     <h3 class="widget-title">Recents</h3>
     <div class="widget">
       <ul>
-        
-          <li>
-            <a href="/2014/09/26/Test/">Hello Test</a>
-          </li>
         
           <li>
             <a href="/2014/09/18/STM32F40x_USB_DFU/">用STM32F40x的USB接口实现DFU功能时碰到的奇葩事儿</a>
