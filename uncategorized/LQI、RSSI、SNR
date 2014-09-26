@@ -11,7 +11,7 @@ IEEE802.15.4标准中对LQI(Link Quality Indicator)的说明如下：LQI用来�
 每一包接收到的数据都应该获取其LQI值，并报告给MAC层。LQI的取值是0x00到0xFF之间的整数，其中0x00和0xFF分别对应">
 <meta property="og:type" content="article">
 <meta property="og:title" content="LQI、RSSI、SNR">
-<meta property="og:url" content="http://polariss.com/uncategorized/LQI、RSSI、SNR.html">
+<meta property="og:url" content="http://polariss.com/uncategorized/LQI、RSSI、SNR">
 <meta property="og:site_name" content="Polaris's World">
 <meta property="og:description" content="关键词汇解释
 LQI
@@ -75,7 +75,7 @@ IEEE802.15.4标准中对LQI(Link Quality Indicator)的说明如下：LQI用来�
       <div class="outer">
         <section id="main"><article id="post-LQI、RSSI、SNR" class="article article-type-post" itemscope itemprop="blogPost">
   <div class="article-meta">
-    <a href="/uncategorized/LQI、RSSI、SNR.html" class="article-date">
+    <a href="/uncategorized/LQI、RSSI、SNR" class="article-date">
   <time datetime="2014-09-06T12:30:00.000Z" itemprop="datePublished">9月 6 2014</time>
 </a>
     
@@ -107,9 +107,9 @@ IEEE802.15.4标准中对LQI(Link Quality Indicator)的说明如下：LQI用来�
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://polariss.com/uncategorized/LQI、RSSI、SNR.html" data-id="lvga7owwre5mfqiy" class="article-share-link">Share</a>
+      <a data-url="http://polariss.com/uncategorized/LQI、RSSI、SNR" data-id="dgu5kw68h800cat3" class="article-share-link">Share</a>
       
-        <a href="http://polariss.com/uncategorized/LQI、RSSI、SNR.html#disqus_thread" class="article-comment-link">Comments</a>
+        <a href="http://polariss.com/uncategorized/LQI、RSSI、SNR#disqus_thread" class="article-comment-link">Comments</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/RF/">RF</a></li></ul>
@@ -120,7 +120,7 @@ IEEE802.15.4标准中对LQI(Link Quality Indicator)的说明如下：LQI用来�
     
 <nav id="article-nav">
   
-    <a href="/uncategorized/Buletooth001.html" id="article-nav-newer" class="article-nav-link-wrap">
+    <a href="/uncategorized/Buletooth001" id="article-nav-newer" class="article-nav-link-wrap">
       <strong class="article-nav-caption">Newer</strong>
       <div class="article-nav-title">
         
@@ -130,7 +130,7 @@ IEEE802.15.4标准中对LQI(Link Quality Indicator)的说明如下：LQI用来�
     </a>
   
   
-    <a href="/uncategorized/C  Runtime Library.html" id="article-nav-older" class="article-nav-link-wrap">
+    <a href="/uncategorized/C  Runtime Library" id="article-nav-older" class="article-nav-link-wrap">
       <strong class="article-nav-caption">Older</strong>
       <div class="article-nav-title">C运行库</div>
     </a>
@@ -186,23 +186,23 @@ IEEE802.15.4标准中对LQI(Link Quality Indicator)的说明如下：LQI用来�
       <ul>
         
           <li>
-            <a href="/uncategorized/Test.html">Hello Test</a>
+            <a href="/uncategorized/Test">Hello Test</a>
           </li>
         
           <li>
-            <a href="/uncategorized/STM32F40x_USB_DFU.html">用STM32F40x的USB接口实现DFU功能时碰到的奇葩事儿</a>
+            <a href="/uncategorized/STM32F40x_USB_DFU">用STM32F40x的USB接口实现DFU功能时碰到的奇葩事儿</a>
           </li>
         
           <li>
-            <a href="/uncategorized/Buletooth001.html">Buletools学习之路-001</a>
+            <a href="/uncategorized/Buletooth001">Buletools学习之路-001</a>
           </li>
         
           <li>
-            <a href="/uncategorized/LQI、RSSI、SNR.html">LQI、RSSI、SNR</a>
+            <a href="/uncategorized/LQI、RSSI、SNR">LQI、RSSI、SNR</a>
           </li>
         
           <li>
-            <a href="/uncategorized/C  Runtime Library.html">C运行库</a>
+            <a href="/uncategorized/C  Runtime Library">C运行库</a>
           </li>
         
       </ul>
@@ -234,7 +234,7 @@ IEEE802.15.4标准中对LQI(Link Quality Indicator)的说明如下：LQI用来�
 <script>
   var disqus_shortname = 'polaris';
   
-  var disqus_url = 'http://polariss.com/uncategorized/LQI、RSSI、SNR.html';
+  var disqus_url = 'http://polariss.com/uncategorized/LQI、RSSI、SNR';
   
   (function(){
     var dsq = document.createElement('script');
