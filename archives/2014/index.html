@@ -66,221 +66,93 @@
       <div class="outer">
         <section id="main">
   
-    <article id="post-STM32F40x_USB_DFU" class="article article-type-post" itemscope itemprop="blogPost">
-  <div class="article-meta">
-    <a href="/2014/09/18/STM32F40x_USB_DFU/" class="article-date">
-  <time datetime="2014-09-18T15:37:08.000Z" itemprop="datePublished">9月 18 2014</time>
+  
+    
+    
+      
+      
+      <section class="archives-wrap">
+        <div class="archive-year-wrap">
+          <a href="/archives/2014" class="archive-year">2014</a>
+        </div>
+        <div class="archives">
+    
+    <article class="archive-article archive-type-post">
+  <div class="archive-article-inner">
+    <header class="archive-article-header">
+      <a href="/2014/09/18/STM32F40x_USB_DFU/" class="archive-article-date">
+  <time datetime="2014-09-18T15:37:08.000Z" itemprop="datePublished">9月 18</time>
 </a>
-    
-  </div>
-  <div class="article-inner">
-    
-    
-      <header class="article-header">
-        
+      
   
     <h1 itemprop="name">
-      <a class="article-title" href="/2014/09/18/STM32F40x_USB_DFU/">用STM32F40x的USB接口实现DFU功能时碰到的奇葩事儿</a>
+      <a class="archive-article-title" href="/2014/09/18/STM32F40x_USB_DFU/">用STM32F40x的USB接口实现DFU功能时碰到的奇葩事儿</a>
     </h1>
   
 
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <h3 id="问题描述"><font color="#B22222">问题描述</font></h3>
-<p>硬件平台：STM32F4-Discovery开发板<br><br>软&nbsp;  &nbsp;  &nbsp;  &nbsp;件：直接采用<a href="http://www.stmcu.org/download/index.php?act=down&amp;id=3080" target="_blank" rel="external"><strong>STM32_USB-Host-Device_Lib_V2.1.0</strong></a>官方例程库中的<em>USB_Device_Examples——&gt;DFU</em>工程<br><br>现&nbsp;  &nbsp;  &nbsp;  &nbsp;象：接入电脑（下载完程序），显示<strong><font color="#B22222">unknown device</font></strong><br><br>具体描述：USB接口原理图如下：<br></p>
-<p><center><img src="/images/STM32F4_USB_Interface.JPG" alt="STM32F4_USB_FS"></center><br></p>
-<p>该原理图截取自STM32F4-Discovery开发板。其实可以简化至只有USB_DM、USB_DP两根线。STM32F4-Discovery开发板提供的官方例程库中是将USB接口作为Host模式枚举为了DFU模式。因为项目要求，需要将其配置为Device模式，所以果断移植STM32_USB-Host-Device_Lib_V2.1.0固件库中的工程。按照相关手册的介绍，完全可以实现STM32F40x单片机的USB接口作为Device的DFU类完成枚举，并在<em>设备管理器</em>中显示 <strong>DFU FS Mode</strong>的盘符。但是在完成上述步骤以后，接入电脑，却发现电脑显示的是<strong>unknown device</strong> 双击后发现属性框显示“没有驱动”的相关字样。</p>
-<h3 id="解决方法"><font color="#0000FF">解决方法</font></h3>
-<p>在<strong><font color="#B22222">system_stm32f4xx.c</font></strong>文件中大概153行处有以下代码：<br></p>
-<figure class="highlight c"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div></pre></td><td class="code"><pre><div class="line"><span class="comment">/************************* PLL Parameters *************************************/</span></div><div class="line"><span class="comment">/* PLL_VCO = (HSE_VALUE or HSI_VALUE / PLL_M) * PLL_N */</span></div><div class="line"><span class="preprocessor">#<span class="keyword">define</span> PLL_M      25</span></div><div class="line"><span class="preprocessor">#<span class="keyword">define</span> PLL_N      336</span></div><div class="line"></div><div class="line"><span class="comment">/* SYSCLK = PLL_VCO / PLL_P */</span></div><div class="line"><span class="preprocessor">#<span class="keyword">define</span> PLL_P      2</span></div><div class="line"></div><div class="line"><span class="comment">/* USB OTG FS, SDIO and RNG Clock =  PLL_VCO / PLLQ */</span></div><div class="line"><span class="preprocessor">#<span class="keyword">define</span> PLL_Q      7</span></div><div class="line"></div><div class="line"><span class="comment">/******************************************************************************/</span></div></pre></td></tr></table></figure>
-
-<p>将第三行中的<br></p>
-<figure class="highlight c"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line"><span class="preprocessor">#<span class="keyword">define</span> PLL_M      25</span></div></pre></td></tr></table></figure>
-
-<p><br><br>修改为<br></p>
-<figure class="highlight c"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line"><span class="preprocessor">#<span class="keyword">define</span> PLL_M      8</span></div></pre></td></tr></table></figure>
-
-<p><br><br>再次编译，下载。就可以顺利解决问题了。<br><br><strong><em><font color="#FF0000">注意：此解决办法只针对板载晶振为8MHz的情况。但是也可反应同一类问题。</font></em></strong></p>
-<h3 id="事后闲叙"><font color="#00FF00">事后闲叙</font></h3>
-<p>问题解决了，可是为什么问题会出在这里还没有认真分析。不仅要知其然，还要知其所以然嘛！<br></p>
-<p>其实看到这些宏定义的时候，就应该想到要看STM32F4的数据手册了。然后从前后文再推断出该宏定义应该是用于时钟配置的。这样，就有重点的去查找数据手册中的RCC章节，发现5.2节对PLL和LSE的作用进行了详细的解释。有兴趣的可以直接去看数据手册。我这里就用大白话简单的解释一下：<br><br><strong>1.采用外部晶振做时钟时，在stm32f4xx.h中的第98行对晶振频率做了宏定义。根据注释，该处需要修改，或者在别处另作宏定义。（即使你不做定义，这里系统也会根据检测的值计算的，但是在其地方的时钟配置会出现问题。这就埋下了隐患！！）例程库中此处是25MHz。但是STM32F4-Discovery板载的是8MHz的晶振。<br><br>2.根据数据手册说明，需要 1MHz &lt;= (HSE_VALUE/PLL_M) &lt;= 2MHz 以便后面的计算中可以顺利的得出48MHz的时钟频率给USB_OTG_FS。例程库将PLL_M设置成了25，这在板载晶振是25MHz的时候是没问题的。但是到了STM32F4-Discovery上，就出问题了。因为HSE_VALUE的实际值是8MHz。<br><br>3.同样的道理，当你的板载晶振不是25MHz的时候，一定要注意对这两个文件中的两个宏定义进行修改。<br></strong></p>
-<p>事后想想，问题的解决似乎看起来就这么容易，可是当初在调试的过程中，楼主可算是费老劲了。总结起来，应该是<strong><em>对硬件的内部结构不求甚解造成了调试时，没有往这方面思考</em></strong>。</p>
-
-      
-    </div>
-    <footer class="article-footer">
-      <a data-url="http://polariss.com/2014/09/18/STM32F40x_USB_DFU/" data-id="v6xtr1nq2pyy4v2t" class="article-share-link">Share</a>
-      
-        <a href="http://polariss.com/2014/09/18/STM32F40x_USB_DFU/#disqus_thread" class="article-comment-link">Comments</a>
-      
-      
-  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/STM32/">STM32</a></li></ul>
-
-    </footer>
+    </header>
   </div>
-  
 </article>
-
-
   
-    <article id="post-Buletooth001" class="article article-type-post" itemscope itemprop="blogPost">
-  <div class="article-meta">
-    <a href="/2014/09/09/Buletooth001/" class="article-date">
-  <time datetime="2014-09-09T13:58:00.000Z" itemprop="datePublished">9月 9 2014</time>
+    
+    
+    <article class="archive-article archive-type-post">
+  <div class="archive-article-inner">
+    <header class="archive-article-header">
+      <a href="/2014/09/09/Buletooth001/" class="archive-article-date">
+  <time datetime="2014-09-09T13:58:00.000Z" itemprop="datePublished">9月 9</time>
 </a>
-    
-  </div>
-  <div class="article-inner">
-    
-    
-      <header class="article-header">
-        
+      
   
     <h1 itemprop="name">
-      <a class="article-title" href="/2014/09/09/Buletooth001/">Buletools学习之路-001</a>
+      <a class="archive-article-title" href="/2014/09/09/Buletooth001/">Buletools学习之路-001</a>
     </h1>
   
 
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <h2 id="纯吐槽">纯吐槽</h2>
-<p>中秋节上午下的订单，买了一套网蜂团队出品的Buletooth 4.0开发板，标价199RMB，把SmartRF04EB仿真器更换成了CCDebugger，又添加了40块大洋。为了楼主刚开始做的梦，楼主这回豁出去了…<br></p>
-<p>今天上午收到了开发板套件，楼主心中那个激动啊，心里的小鹿砰砰撞呢，哈哈。中午吃完饭回家后打开盒子一看，矮油，还不错哟，包装的挺好，还送了一个钥匙坠，好开心。But！！当我仔细看完两个开发板时，发现好像哪里不对劲了。楼主本来中午安排好睡觉觉的，可是仔细审视这两个开发板后，就再也睡不着了。尼玛，这两个板子是一个爹妈生的吗？差别也太大了。网蜂当楼主是刚入门不懂事的小弟么？<br></p>
-<p>晚上下班后，楼主再也不能忍了，决定直接上旺旺质问客服。这一问，楼主彻底不想多说了。这里就总结一下第一次跟网蜂团队接触的吐槽点吧：<br></p>
-<pre><code><span class="bullet">1.    </span>开发板做的不算太精致，甚至板子还有毛边和锡渍
-<span class="bullet">2.    </span>新老版本变动太大，升级必然会出现阻碍
-<span class="bullet">3.    </span>不厚道，给客户发了一个新版本一个旧版本算什么？而且两个版本的原理图还不兼容。觉得客户都是愣头青？
-<span class="bullet">4.    </span>找的客服太冷淡，是觉得自己的团队技术够牛逼，不用在意这些细节么？
-</code></pre><p>其他的细节问题楼主还没有发现，晚上基本上安装安装驱动，吐吐槽，就该睡觉了。<br></p>
-<p>以上言论纯属个人吐槽，不涉及商业竞争什么的。</p>
-
-      
-    </div>
-    <footer class="article-footer">
-      <a data-url="http://polariss.com/2014/09/09/Buletooth001/" data-id="it1on7ogw94u01ra" class="article-share-link">Share</a>
-      
-        <a href="http://polariss.com/2014/09/09/Buletooth001/#disqus_thread" class="article-comment-link">Comments</a>
-      
-      
-  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Buletooth/">Buletooth</a></li></ul>
-
-    </footer>
+    </header>
   </div>
-  
 </article>
-
-
   
-    <article id="post-LQI、RSSI、SNR" class="article article-type-post" itemscope itemprop="blogPost">
-  <div class="article-meta">
-    <a href="/2014/09/06/LQI、RSSI、SNR/" class="article-date">
-  <time datetime="2014-09-06T12:30:00.000Z" itemprop="datePublished">9月 6 2014</time>
+    
+    
+    <article class="archive-article archive-type-post">
+  <div class="archive-article-inner">
+    <header class="archive-article-header">
+      <a href="/2014/09/06/LQI、RSSI、SNR/" class="archive-article-date">
+  <time datetime="2014-09-06T12:30:00.000Z" itemprop="datePublished">9月 6</time>
 </a>
-    
-  </div>
-  <div class="article-inner">
-    
-    
-      <header class="article-header">
-        
+      
   
     <h1 itemprop="name">
-      <a class="article-title" href="/2014/09/06/LQI、RSSI、SNR/">LQI、RSSI、SNR</a>
+      <a class="archive-article-title" href="/2014/09/06/LQI、RSSI、SNR/">LQI、RSSI、SNR</a>
     </h1>
   
 
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <h2 id="关键词汇解释"><font color="#0000CD">关键词汇解释</font></h2>
-<h3 id="LQI"><font color="#0000CD">LQI</font></h3>
-<p>IEEE802.15.4标准中对<strong>LQI(Link Quality Indicator)</strong>的说明如下：LQI用来描述接收到数据包的强度和/或质量。通过接收端ED(Dnergy Detection),信噪比估值等变量计算得到。并由网络层或应用层调用。</p>
-<p>每一包接收到的数据都应该获取其LQI值，并报告给MAC层。LQI的取值是0x00到0xFF之间的整数，其中0x00和0xFF分别对应着信号质量最差和信号质量最好的情况。所有测到的LQ(Link Quality)值应该都应该分布在这两个极限值之间。<em>至少需要8个唯一的LQ值</em>(这一句话什么意思？)。</p>
-<h3 id="RSSI"><font color="#0000CD">RSSI</font></h3>
-<p><strong>RSSI(Received Signal Strength Indication)</strong>顾名思义，接收信号强度指示。通俗的说，该值越大，就说明信号越好，通信质量越有保证。</p>
-<h3 id="SNR"><font color="#0000CD">SNR</font></h3>
-<p>信噪比，输出信号的电压与伴随噪声的电压的比值。常用分贝数表示。其中“噪声”的简单定义就是：设备在处理信号的过程中自行产生的无用信号。SNR是衡量信号质量的一个重要标准，输出信号的SNR值越高，就说明输出信号中噪声的比重越小，信号的保真度越高。</p>
-
-      
-    </div>
-    <footer class="article-footer">
-      <a data-url="http://polariss.com/2014/09/06/LQI、RSSI、SNR/" data-id="dsylxlajrkyk1cw5" class="article-share-link">Share</a>
-      
-        <a href="http://polariss.com/2014/09/06/LQI、RSSI、SNR/#disqus_thread" class="article-comment-link">Comments</a>
-      
-      
-  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/RF/">RF</a></li></ul>
-
-    </footer>
+    </header>
   </div>
-  
 </article>
-
-
   
-    <article id="post-C  Runtime Library" class="article article-type-post" itemscope itemprop="blogPost">
-  <div class="article-meta">
-    <a href="/2014/09/05/C  Runtime Library/" class="article-date">
-  <time datetime="2014-09-05T14:21:00.000Z" itemprop="datePublished">9月 5 2014</time>
+    
+    
+    <article class="archive-article archive-type-post">
+  <div class="archive-article-inner">
+    <header class="archive-article-header">
+      <a href="/2014/09/05/C  Runtime Library/" class="archive-article-date">
+  <time datetime="2014-09-05T14:21:00.000Z" itemprop="datePublished">9月 5</time>
 </a>
-    
-  </div>
-  <div class="article-inner">
-    
-    
-      <header class="article-header">
-        
+      
   
     <h1 itemprop="name">
-      <a class="article-title" href="/2014/09/05/C  Runtime Library/">C运行库</a>
+      <a class="archive-article-title" href="/2014/09/05/C  Runtime Library/">C运行库</a>
     </h1>
   
 
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <p>前几天参加一家公司的面试，笔试时碰到了这么一个问题：<strong><font color="#0000ff">解释一下C运行库的意义和用途</font></strong>。哎，学艺不精，整好从来没留意过这个概念，回来之后当然是要搞懂这个传说中的C运行库到底是个神马玩意儿了。下面就把从网上搜集的资料总结了一下，记录下来，前事不忘后事之师嘛。<br><!-- more --></p>
-<h3 id="什么是运行库"><li>什么是运行库</li></h3>
-<p>任何一个C程序，它的背后都有一套庞大的代码来进行支撑，以使得该程序能够正常运行。这套代码至少包括入口函数，及其所依赖的函数所构成的函数集合。当然，它还理应包括各种标准库函数的实现。这样的一个代码集合称之为<font color="#ff0000">运行库（Runtime Library）</font>。而C语言的运行库，即被称为C运行库（CRT-C Runtime Library）。</p><p></p>
-<h3 id="C运行库的功能"><li>C运行库的功能</li></h3>
-<p>一个C语言运行库大致包含了如下功能：</p>
-<ul>
-<li>启动与退出     &nbsp; &nbsp; &nbsp;包括入口函数及入口函数所以来的其他函数等。</li>
-<li>标准函数 &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;由C语言标准规定的C语言标准库所拥有的函数实现。</li>
-<li>I/O &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp;I/O功能的封装和实现。</li>
-<li>堆 &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp; 堆的封装和实现。</li>
-<li>语言实现  &nbsp; &nbsp; &nbsp; &nbsp; 语言中一些特殊功能的实现。</li>
-<li>调试 &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;实现调试功能的代码。</li>
-</ul>
-<p><hr><br>
-        
-          <p class="article-more-link">
-            <a href="/2014/09/05/C  Runtime Library/#more">Read More</a>
-          </p>
-        
-      
-    </div>
-    <footer class="article-footer">
-      <a data-url="http://polariss.com/2014/09/05/C  Runtime Library/" data-id="3enzhrlwz9y5ertm" class="article-share-link">Share</a>
-      
-        <a href="http://polariss.com/2014/09/05/C  Runtime Library/#disqus_thread" class="article-comment-link">Comments</a>
-      
-      
-  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/C/">C</a></li></ul>
-
-    </footer>
+    </header>
   </div>
-  
 </article>
-
-
   
+  
+    </div></section>
   
 </section>
         
