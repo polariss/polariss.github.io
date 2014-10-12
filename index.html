@@ -68,6 +68,66 @@
       <div class="outer">
         <section id="main">
   
+    <article id="post-Fat32文件系统学习笔记01" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2014/10/09/Fat32文件系统学习笔记01/" class="article-date">
+  <time datetime="2014-10-09T02:37:08.000Z" itemprop="datePublished">10月 9 2014</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2014/10/09/Fat32文件系统学习笔记01/">FAT32文件系统学习笔记01</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h3 id="声明"><font color="GREEN">声明</font></h3>
+<p>本文是我在阅读<a href="http://pan.baidu.com/s/1qWBczwC" target="_blank" rel="external"><font color="BLUE">《FAT32文件系统详解》</font></a>和<a href="http://pan.baidu.com/s/1eQqyegq" target="_blank" rel="external"><font color="BLUE">《4.5万字透视FAT32系统》</font></a>的过程中所做的摘要记录和一些自己的理解。详细的内容请参考原文，我在阅读过程中，已对第一篇文章中出现的严重影响阅读的错别字进行了修改，有兴趣的可以点击上边的文件名直接下载我上传的链接文档。建议初学者先看第一篇文章，比较容易理解。然后再看第二篇文章，第二篇文章写的比较严谨。</p>
+<h2 id="重要概念"><font color="BLUE">重要概念</font></h2>
+<ul>
+<li><strong><font color="BLACK">磁道、扇区、柱面</font></strong> &nbsp; &nbsp;这三个概念一定要搞清楚，否则很难理解硬件的工作原理。其中，磁盘扇区编号是从1开始的，而各分区的扇区编号是从0开始的。这一点要明白，不然容易在文章中迷失…</li>
+<li><strong><font color="BLACK">MBR(Master Boot Recotder,主引导记录/主引导扇区)</font></strong> &nbsp; &nbsp;它位于磁盘的第一个扇区（0#柱面0#磁头1#扇区），是计算机启动后执行完BIOS固件以后，系统首先要访问的扇区。到这里，系统的控制权就交由MBR来执行了。MBR由446字节的引导代码+64字节的硬盘分区表(DPT,Disk Partition Table)+“55 AA”(结束符) 组成，共512字节。</li>
+<li><strong><font color="BLACK">EBR(Extended Boot Record,扩展引导记录)</font></strong> &nbsp; &nbsp;由于MBR扇区只包含了4个分区列表，如果用户需要将磁盘分为4个以上的分区的话，就需要由EBR来处理了。</li>
+<li><strong><font color="BLACK">DBR(DOS Boot Record,系统引导扇区)</font></strong> &nbsp; &nbsp;它通常占用分区的第0扇区，共512字节。这512个字节又是由<em>跳转指令</em>，<em>厂商标志</em>和<em>操作系统版本号</em>，<em>BPB(BIOS Parameter Block)</em>，<em>扩展BPB</em>，<em>os引导程序</em>，<em>结束标志</em>几部分组成。是CPU进入各分区进行数据操作时首先要访问的扇区。<em><font color="green">我的理解是：它在分区中的作用和MBR在磁盘中的作用类似</font></em>。</li>
+<li><strong><font color="BLACK">BPB(BIOS Parameter Block)</font></strong> &nbsp; &nbsp;它是DBR中的一段参数信息，可以帮助系统找到相关数据。</li>
+<li><strong><font color="BLACK">数据单元</font></strong> &nbsp; &nbsp;在向磁盘写入数据或读取数据时，单次操作的数据量就成为数据单元。在FAT和NTFS文件系统中，将它称作<strong>“簇(Cluster)”</strong>。一个数据单元由若干个连续的扇区组成，它的大小总是2的整数次幂个扇区，并在建立文件系统时确定。FAT中簇的最大值为64个扇区，即32KB。所有簇从2开始进行编号。</li>
+</ul>
+<h2 id="关键点解读"><font color="BLUE">关键点解读</font></h2>
+<ol>
+<li><strong><font color="RED">对MBR、DBR这两个引导扇区的意义和作用方式容易混淆</font></strong>。这里说下我的理解：MBR就是整个磁盘的引导扇区，告诉CPU该如何找到每个分区。而DBR就是每个分区里边的引导扇区，CPU要想找到某个分区里的具体数据，需要问DBR要详细信息。按照这个思路，再看下面这个图(摘自《4.5万字透视FAT32系统》一文中的图7），就可以分辨的很清楚了。<center><img src="/images/FAT-Theory.png" alt="图"></center></li>
+<li><strong><font color="RED">保留区里到底都存了那些数据呢？</font></strong>分区内的保留区里存储的有DBR、FSINFO、以及其备份扇区。整个磁盘开始的保留区内则存放的是MBR。</li>
+<li><strong><font color="RED">FAT表区、表项、根目录、目录项</font></strong>——这几个内容的联系和的运作原理比较容易把人绕晕。建议自己在阅读的时候参考链表原理，同时绘制出图形来，这样就会对它们之间的运行原理比较清晰了。</li>
+</ol>
+<h2 id="关键扇区内容归纳">关键扇区内容归纳</h2>
+<p>这里只对MBR、DBR、FSINFO信息扇区的结构做归纳，方便以后直接查阅。详情请阅读这以上推荐的两篇文章，里面都有详细的讲解。</p>
+<p>1、MBR结构如表1所示</p>
+<center><img src="/images/FAT-MBR.jpg" alt="表"> <img src="/images/SystemIDs.png" alt="图"></center><br>2、DBR结构如表2所示<br><center><img src="/images/FAT-DBR.jpg" alt="表"></center><br>3、FAT32在保留区中增加了一个FSINFO扇区，用以记录文件系统中空闲簇的数量以及下一个可用簇的簇号等信息。<strong><em>该扇区一般位于文件系统的1号扇区，即DBR扇区之后</em></strong>。FSINFO信息扇区结构如表3所示<br><center><img src="/images/FAT-FSINFO.jpg" alt="表"></center>
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://polariss.com/2014/10/09/Fat32文件系统学习笔记01/" data-id="75mykj33b9ernorp" class="article-share-link">Share</a>
+      
+        <a href="http://polariss.com/2014/10/09/Fat32文件系统学习笔记01/#disqus_thread" class="article-comment-link">Comments</a>
+      
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/STM32/">STM32</a></li></ul>
+
+    </footer>
+  </div>
+  
+</article>
+
+
+  
     <article id="post-STM32F40x_USB_DFU" class="article article-type-post" itemscope itemprop="blogPost">
   <div class="article-meta">
     <a href="/2014/09/18/STM32F40x_USB_DFU/" class="article-date">
@@ -113,7 +173,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://polariss.com/2014/09/18/STM32F40x_USB_DFU/" data-id="g35orr4xw24y1ax9" class="article-share-link">Share</a>
+      <a data-url="http://polariss.com/2014/09/18/STM32F40x_USB_DFU/" data-id="38b76iqpdush7lly" class="article-share-link">Share</a>
       
         <a href="http://polariss.com/2014/09/18/STM32F40x_USB_DFU/#disqus_thread" class="article-comment-link">Comments</a>
       
@@ -163,7 +223,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://polariss.com/2014/09/09/Buletooth001/" data-id="2zwncu9185bzca2x" class="article-share-link">Share</a>
+      <a data-url="http://polariss.com/2014/09/09/Buletooth001/" data-id="o1nkv8mwsbu7juwl" class="article-share-link">Share</a>
       
         <a href="http://polariss.com/2014/09/09/Buletooth001/#disqus_thread" class="article-comment-link">Comments</a>
       
@@ -211,7 +271,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://polariss.com/2014/09/06/LQI、RSSI、SNR/" data-id="uo55piijie0utgph" class="article-share-link">Share</a>
+      <a data-url="http://polariss.com/2014/09/06/LQI、RSSI、SNR/" data-id="8595oc19jobg9g2f" class="article-share-link">Share</a>
       
         <a href="http://polariss.com/2014/09/06/LQI、RSSI、SNR/#disqus_thread" class="article-comment-link">Comments</a>
       
@@ -269,7 +329,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://polariss.com/2014/09/05/C  Runtime Library/" data-id="jf2s3jhzfijc8ew6" class="article-share-link">Share</a>
+      <a data-url="http://polariss.com/2014/09/05/C  Runtime Library/" data-id="ulstcuixlut8qojf" class="article-share-link">Share</a>
       
         <a href="http://polariss.com/2014/09/05/C  Runtime Library/#disqus_thread" class="article-comment-link">Comments</a>
       
@@ -294,7 +354,7 @@
   <div class="widget-wrap">
     <h3 class="widget-title">Tags</h3>
     <div class="widget">
-      <ul class="tag-list"><li class="tag-list-item"><a class="tag-list-link" href="/tags/Buletooth/">Buletooth</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/C/">C</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/RF/">RF</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/STM32/">STM32</a><span class="tag-list-count">1</span></li></ul>
+      <ul class="tag-list"><li class="tag-list-item"><a class="tag-list-link" href="/tags/Buletooth/">Buletooth</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/C/">C</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/RF/">RF</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/STM32/">STM32</a><span class="tag-list-count">2</span></li></ul>
     </div>
   </div>
 
@@ -303,7 +363,7 @@
   <div class="widget-wrap">
     <h3 class="widget-title">Tag Cloud</h3>
     <div class="widget tagcloud">
-      <a href="/tags/Buletooth/" style="font-size: NaNpx;">Buletooth</a><a href="/tags/C/" style="font-size: NaNpx;">C</a><a href="/tags/RF/" style="font-size: NaNpx;">RF</a><a href="/tags/STM32/" style="font-size: NaNpx;">STM32</a>
+      <a href="/tags/Buletooth/" style="font-size: 10.00px;">Buletooth</a><a href="/tags/C/" style="font-size: 10.00px;">C</a><a href="/tags/RF/" style="font-size: 10.00px;">RF</a><a href="/tags/STM32/" style="font-size: 20.00px;">STM32</a>
     </div>
   </div>
 
@@ -312,7 +372,7 @@
   <div class="widget-wrap">
     <h3 class="widget-title">Archives</h3>
     <div class="widget">
-      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2014/09/">September 2014</a><span class="archive-list-count">4</span></li></ul>
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2014/10/">October 2014</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2014/09/">September 2014</a><span class="archive-list-count">4</span></li></ul>
     </div>
   </div>
 
@@ -322,6 +382,10 @@
     <h3 class="widget-title">Recents</h3>
     <div class="widget">
       <ul>
+        
+          <li>
+            <a href="/2014/10/09/Fat32文件系统学习笔记01/">FAT32文件系统学习笔记01</a>
+          </li>
         
           <li>
             <a href="/2014/09/18/STM32F40x_USB_DFU/">用STM32F40x的USB接口实现DFU功能时碰到的奇葩事儿</a>
